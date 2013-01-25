@@ -32,6 +32,7 @@ package away3d.animators
 		override public function start():void
 		{
 			super.start();
+			_absoluteTime = 0;
 			for (var index:int; index < numAnimator; index++)
 			{
 				var animator:ParticleAnimator = animators[index];
