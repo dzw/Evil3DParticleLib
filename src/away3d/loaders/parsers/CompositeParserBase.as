@@ -154,12 +154,16 @@ package away3d.loaders.parsers
 		public function set root(value:CompositeParserBase):void
 		{
 			_root = value;
+			if (_children)
+				for each (var child:CompositeParserBase in _children)
+					child.root = value;
 		}
 		
 		arcane function addAssets(url:String, assets:Vector.<IAsset>):void
 		{
 			_loadedAssetCache[url] = assets;
 		}
+		
 		arcane function getAssets(url:String):Vector.<IAsset>
 		{
 			return _loadedAssetCache[url] as Vector.<IAsset>;
