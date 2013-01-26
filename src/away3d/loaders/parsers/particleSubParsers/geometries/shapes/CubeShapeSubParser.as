@@ -2,12 +2,8 @@ package away3d.loaders.parsers.particleSubParsers.geometries.shapes
 {
 	import away3d.arcane;
 	import away3d.core.base.Geometry;
-	import away3d.loaders.misc.ResourceDependency;
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
 	import away3d.primitives.CubeGeometry;
-	import away3d.primitives.PlaneGeometry;
-	
-	import flash.net.URLRequest;
 	
 	use namespace arcane;
 	

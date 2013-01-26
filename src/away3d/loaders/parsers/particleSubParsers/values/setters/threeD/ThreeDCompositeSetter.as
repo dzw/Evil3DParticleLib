@@ -2,6 +2,7 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.threeD
 {
 	import away3d.animators.data.ParticleProperties;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
+	
 	import flash.geom.Vector3D;
 	
 	public class ThreeDCompositeSetter extends SetterBase

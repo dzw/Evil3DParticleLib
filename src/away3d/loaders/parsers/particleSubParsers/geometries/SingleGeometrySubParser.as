@@ -5,7 +5,6 @@ package away3d.loaders.parsers.particleSubParsers.geometries
 	import away3d.core.base.ParticleGeometry;
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
 	import away3d.loaders.parsers.particleSubParsers.AllSubParsers;
-	import away3d.loaders.parsers.particleSubParsers.geometries.shapes.ExternalShapeSubParser;
 	import away3d.loaders.parsers.particleSubParsers.geometries.shapes.ShapeSubParserBase;
 	import away3d.loaders.parsers.particleSubParsers.utils.MatchingTool;
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
@@ -13,8 +12,6 @@ package away3d.loaders.parsers.particleSubParsers.geometries
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
 	import away3d.tools.helpers.ParticleGeometryHelper;
 	import away3d.tools.helpers.data.ParticleGeometryTransform;
-	
-	import flash.geom.Matrix3D;
 	
 	use namespace arcane;
 	

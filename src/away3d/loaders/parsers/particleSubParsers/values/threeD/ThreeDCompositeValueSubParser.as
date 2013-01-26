@@ -3,10 +3,8 @@ package away3d.loaders.parsers.particleSubParsers.values.threeD
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
 	import away3d.loaders.parsers.particleSubParsers.AllSubParsers;
 	import away3d.loaders.parsers.particleSubParsers.utils.MatchingTool;
-	import away3d.loaders.parsers.particleSubParsers.values.setters.threeD.ThreeDCompositeSetter;
-	import away3d.loaders.parsers.particleSubParsers.values.setters.threeD.ThreeDConstSetter;
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
-	import flash.geom.Vector3D;
+	import away3d.loaders.parsers.particleSubParsers.values.setters.threeD.ThreeDCompositeSetter;
 	
 	
 	public class ThreeDCompositeValueSubParser extends ValueSubParserBase

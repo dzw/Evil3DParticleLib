@@ -1,8 +1,6 @@
 package away3d.loaders.parsers.particleSubParsers.values
 {
-	import away3d.errors.AbstractMethodError;
 	import away3d.loaders.parsers.CompositeParserBase;
-	import away3d.loaders.parsers.ParserDataFormat;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
 	
 	public class ValueSubParserBase extends CompositeParserBase

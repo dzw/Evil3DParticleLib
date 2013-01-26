@@ -2,7 +2,6 @@ package away3d.loaders.parsers.particleSubParsers.nodes
 {
 	import away3d.animators.data.ParticlePropertiesMode;
 	import away3d.animators.nodes.ParticleBezierCurveNode;
-	import away3d.animators.nodes.ParticlePositionNode;
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
 	import away3d.loaders.parsers.particleSubParsers.AllSubParsers;
 	import away3d.loaders.parsers.particleSubParsers.utils.MatchingTool;

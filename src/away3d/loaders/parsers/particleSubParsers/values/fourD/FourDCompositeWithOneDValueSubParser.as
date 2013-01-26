@@ -6,10 +6,6 @@ package away3d.loaders.parsers.particleSubParsers.values.fourD
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.fourD.FourDCompositeWithOneDSetter;
-	import away3d.loaders.parsers.particleSubParsers.values.setters.threeD.ThreeDCompositeSetter;
-	import away3d.loaders.parsers.particleSubParsers.values.setters.threeD.ThreeDConstSetter;
-	
-	import flash.geom.Vector3D;
 	
 	
 	public class FourDCompositeWithOneDValueSubParser extends ValueSubParserBase

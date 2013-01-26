@@ -9,7 +9,6 @@ package away3d.loaders.parsers.particleSubParsers.materials
 	import away3d.materials.TextureMaterial;
 	import away3d.textures.Texture2DBase;
 	
-	import flash.display3D.textures.TextureBase;
 	import flash.net.URLRequest;
 	use namespace arcane;
 	

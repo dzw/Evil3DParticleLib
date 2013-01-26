@@ -1,12 +1,10 @@
 package away3d.loaders.parsers.particleSubParsers.nodes
 {
-	import away3d.animators.data.ParticleProperties;
-	import away3d.animators.nodes.ParticleTimeNode;
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
 	import away3d.loaders.parsers.particleSubParsers.AllSubParsers;
 	import away3d.loaders.parsers.particleSubParsers.utils.MatchingTool;
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
-
+	
 	public class ParticleTimeNodeSubParser extends ParticleNodeSubParserBase
 	{
 		public var usesDuration:Boolean;
@@ -15,11 +13,11 @@ package away3d.loaders.parsers.particleSubParsers.nodes
 		private var _startTimeValue:ValueSubParserBase;
 		private var _durationValue:ValueSubParserBase;
 		private var _delayValue:ValueSubParserBase;
-
+		
 		public function ParticleTimeNodeSubParser()
 		{
 		}
-
+		
 		private function initSetters():void
 		{
 			_setters.push(_startTimeValue.setter);
@@ -28,7 +26,7 @@ package away3d.loaders.parsers.particleSubParsers.nodes
 			if (usesDelay)
 				_setters.push(_delayValue.setter);
 		}
-
+		
 		override protected function proceedParsing():Boolean
 		{
 			if (_isFirstParsing)
@@ -36,13 +34,13 @@ package away3d.loaders.parsers.particleSubParsers.nodes
 				usesLooping = _data.usesLooping;
 				usesDuration = _data.usesDuration;
 				usesDelay = _data.usesDelay;
-
+				
 				var object:Object = _data.startTime;
 				var Id:Object = object.id;
 				var subData:Object = object.data;
-
+				
 				var valueCls:Class;
-
+				
 				valueCls = MatchingTool.getMatchedClass(Id, AllSubParsers.ALL_ONED_VALUES);
 				if (!valueCls)
 				{
@@ -51,8 +49,8 @@ package away3d.loaders.parsers.particleSubParsers.nodes
 				_startTimeValue = new valueCls("startTime");
 				addSubParser(_startTimeValue);
 				_startTimeValue.parseAsync(subData);
-
-
+				
+				
 				if (usesDuration)
 				{
 					object = _data.duration;
@@ -67,8 +65,8 @@ package away3d.loaders.parsers.particleSubParsers.nodes
 					addSubParser(_durationValue);
 					_durationValue.parseAsync(subData);
 				}
-
-
+				
+				
 				if (usesDelay)
 				{
 					object = _data.delay;
@@ -92,12 +90,12 @@ package away3d.loaders.parsers.particleSubParsers.nodes
 			else
 				return MORE_TO_PARSE;
 		}
-
+		
 		public static function get identifier():*
 		{
 			return AllIdentifiers.ParticleTimeNodeSubParser;
 		}
-
+	
 	}
 
 }

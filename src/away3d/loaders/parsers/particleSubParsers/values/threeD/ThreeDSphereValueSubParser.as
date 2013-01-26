@@ -2,10 +2,7 @@ package away3d.loaders.parsers.particleSubParsers.values.threeD
 {
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
-	import away3d.loaders.parsers.particleSubParsers.values.setters.threeD.ThreeDConstSetter;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.threeD.ThreeDSphereSetter;
-	
-	import flash.geom.Vector3D;
 	
 	
 	public class ThreeDSphereValueSubParser extends ValueSubParserBase

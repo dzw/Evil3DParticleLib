@@ -7,8 +7,6 @@ package away3d.loaders.parsers.particleSubParsers.values.matrix
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.matrix.Matrix3DCompositeSetter;
 	
-	import flash.geom.Matrix3D;
-	
 	
 	public class Matrix3DCompositeValueSubParser extends ValueSubParserBase
 	{

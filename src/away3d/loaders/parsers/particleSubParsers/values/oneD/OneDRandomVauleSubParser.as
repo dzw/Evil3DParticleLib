@@ -1,9 +1,9 @@
 package away3d.loaders.parsers.particleSubParsers.values.oneD
 {
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
-	import away3d.loaders.parsers.particleSubParsers.values.setters.oneD.OneDRandomSetter;
-	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
+	import away3d.loaders.parsers.particleSubParsers.values.setters.oneD.OneDRandomSetter;
+	
 	/**
 	 * ...
 	 */
@@ -15,7 +15,7 @@ package away3d.loaders.parsers.particleSubParsers.values.oneD
 			super(propName, VARIABLE_VALUE);
 		}
 		
-		override public function parseAsync(data : *, frameLimit : Number = 30) : void
+		override public function parseAsync(data:*, frameLimit:Number = 30):void
 		{
 			super.parseAsync(data, frameLimit);
 			_setter = new OneDRandomSetter(_propName, _data.min, _data.max);
@@ -25,7 +25,7 @@ package away3d.loaders.parsers.particleSubParsers.values.oneD
 		{
 			return AllIdentifiers.OneDRandomVauleSubParser;
 		}
-		
+	
 	}
 
 }
