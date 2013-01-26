@@ -1,7 +1,9 @@
 package away3d.animators
 {
-	import away3d.entities.Mesh;
+	import away3d.animators.data.ParticleGroupEventProperty;
 	import away3d.animators.data.ParticleInstanceProperty;
+	import away3d.entities.Mesh;
+	import away3d.events.ParticleGroupEvent;
 	
 	/**
 	 * ...
@@ -12,8 +14,9 @@ package away3d.animators
 		private var animators:Vector.<ParticleAnimator> = new Vector.<ParticleAnimator>;
 		private var animatorTimeOffset:Vector.<int>;
 		private var numAnimator:int;
+		private var eventList:Vector.<ParticleGroupEventProperty>;
 		
-		public function ParticleGroupAnimator(particleAnimationMeshes:Vector.<Mesh>, instanceProperties:Vector.<ParticleInstanceProperty>)
+		public function ParticleGroupAnimator(particleAnimationMeshes:Vector.<Mesh>, instanceProperties:Vector.<ParticleInstanceProperty>, eventList:Vector.<ParticleGroupEventProperty>)
 		{
 			super(null);
 			numAnimator = particleAnimationMeshes.length;
@@ -27,6 +30,8 @@ package away3d.animators
 				if (instanceProperties[index])
 					animatorTimeOffset[index] = instanceProperties[index].timeOffset * 1000;
 			}
+			
+			this.eventList = eventList;
 		}
 		
 		override public function start():void
@@ -46,6 +51,17 @@ package away3d.animators
 			for each (var animator:ParticleAnimator in animators)
 			{
 				animator.time = _absoluteTime;
+			}
+			if (eventList)
+			{
+				for each (var eventProperty:ParticleGroupEventProperty in eventList)
+				{
+					if (dt != 0 && (eventProperty.occurTime * 1000 - _absoluteTime) * (eventProperty.occurTime * 1000 - (_absoluteTime - dt)) <= 0)
+					{
+						if (hasEventListener(ParticleGroupEvent.OCCUR))
+							dispatchEvent(new ParticleGroupEvent(ParticleGroupEvent.OCCUR, eventProperty));
+					}
+				}
 			}
 		}
 		

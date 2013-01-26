@@ -2,11 +2,12 @@ package away3d.entities
 {
 	import away3d.animators.ParticleAnimator;
 	import away3d.animators.ParticleGroupAnimator;
+	import away3d.animators.data.ParticleGroupEventProperty;
+	import away3d.animators.data.ParticleInstanceProperty;
 	import away3d.animators.nodes.ParticleFollowNode;
 	import away3d.animators.states.ParticleFollowState;
 	import away3d.containers.ObjectContainer3D;
 	import away3d.core.base.Object3D;
-	import away3d.animators.data.ParticleInstanceProperty;
 	
 	
 	public class ParticleGroup extends ObjectContainer3D
@@ -20,8 +21,9 @@ package away3d.entities
 		protected var _showBounds:Boolean;
 		
 		protected var _customParamters:Object;
+		protected var _eventList:Vector.<ParticleGroupEventProperty>;
 		
-		public function ParticleGroup(particleMeshes:Vector.<Mesh>, instanceProperties:Vector.<ParticleInstanceProperty>, customParameters:Object = null)
+		public function ParticleGroup(particleMeshes:Vector.<Mesh>, instanceProperties:Vector.<ParticleInstanceProperty>, customParameters:Object = null, eventList:Vector.<ParticleGroupEventProperty> = null)
 		{
 			_followParticleContainer = new FollowParticleContainer();
 			addChild(_followParticleContainer);
@@ -39,8 +41,9 @@ package away3d.entities
 			
 			_particleMeshes = particleMeshes;
 			_instanceProperties = instanceProperties;
+			_eventList = eventList;
 			
-			_animator = new ParticleGroupAnimator(particleMeshes, instanceProperties);
+			_animator = new ParticleGroupAnimator(particleMeshes, instanceProperties, _eventList);
 			
 			for (var index:int; index < particleMeshes.length; index++)
 			{
@@ -111,7 +114,7 @@ package away3d.entities
 			{
 				newMeshes[i] = _particleMeshes[i].clone() as Mesh;
 			}
-			var clone:ParticleGroup = new ParticleGroup(newMeshes, _instanceProperties, customParamters);
+			var clone:ParticleGroup = new ParticleGroup(newMeshes, _instanceProperties, customParamters, _eventList);
 			clone.pivotPoint = pivotPoint;
 			clone.transform = transform;
 			clone.partition = partition;
