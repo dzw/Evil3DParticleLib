@@ -5,6 +5,7 @@ package away3d.entities
 	import away3d.animators.nodes.ParticleFollowNode;
 	import away3d.animators.states.ParticleFollowState;
 	import away3d.containers.ObjectContainer3D;
+	import away3d.core.base.Object3D;
 	import away3d.loaders.parsers.particleSubParsers.utils.ParticleInstanceProperty;
 	
 	
@@ -81,6 +82,35 @@ package away3d.entities
 				}
 			}
 			return false;
+		}
+		
+		override public function clone():Object3D
+		{
+			var len:uint = _particleMeshes.length;
+			var newMeshes:Vector.<Mesh> = new Vector.<Mesh>(len, true);
+			var i:int;
+			for (i = 0; i < len; i++)
+			{
+				newMeshes[i] = _particleMeshes[i].clone() as Mesh;
+			}
+			var clone:ParticleGroup = new ParticleGroup(newMeshes, _instanceProperties);
+			clone.pivotPoint = pivotPoint;
+			clone.transform = transform;
+			clone.partition = partition;
+			clone.name = name;
+			clone.showBounds = showBounds;
+			
+			len = numChildren;
+			for (i = 0; i < len; i++)
+			{
+				var child:ObjectContainer3D = getChildAt(i);
+				if (_particleMeshes.indexOf(child) == -1)
+				{
+					clone.addChild(ObjectContainer3D(child.clone()));
+				}
+			}
+			
+			return clone;
 		}
 	
 	}
