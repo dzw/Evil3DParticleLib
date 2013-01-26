@@ -1,4 +1,4 @@
-package away3d.loaders.parsers.particleSubParsers.utils
+package away3d.animators.data
 {
 	import away3d.animators.ParticleAnimator;
 	import away3d.entities.Mesh;

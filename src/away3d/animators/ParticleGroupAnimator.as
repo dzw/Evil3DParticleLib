@@ -1,7 +1,7 @@
 package away3d.animators
 {
 	import away3d.entities.Mesh;
-	import away3d.loaders.parsers.particleSubParsers.utils.ParticleInstanceProperty;
+	import away3d.animators.data.ParticleInstanceProperty;
 	
 	/**
 	 * ...

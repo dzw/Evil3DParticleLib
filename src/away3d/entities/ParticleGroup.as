@@ -6,7 +6,7 @@ package away3d.entities
 	import away3d.animators.states.ParticleFollowState;
 	import away3d.containers.ObjectContainer3D;
 	import away3d.core.base.Object3D;
-	import away3d.loaders.parsers.particleSubParsers.utils.ParticleInstanceProperty;
+	import away3d.animators.data.ParticleInstanceProperty;
 	
 	
 	public class ParticleGroup extends ObjectContainer3D
@@ -19,10 +19,23 @@ package away3d.entities
 		
 		protected var _showBounds:Boolean;
 		
-		public function ParticleGroup(particleMeshes:Vector.<Mesh>, instanceProperties:Vector.<ParticleInstanceProperty>)
+		protected var _customParamters:Object;
+		
+		public function ParticleGroup(particleMeshes:Vector.<Mesh>, instanceProperties:Vector.<ParticleInstanceProperty>, customParameters:Object = null)
 		{
 			_followParticleContainer = new FollowParticleContainer();
 			addChild(_followParticleContainer);
+			
+			if (customParameters)
+			{
+				//clone the customParameters
+				//TODO: find a better way
+				_customParamters = JSON.parse(JSON.stringify(customParameters));
+			}
+			else
+			{
+				_customParamters = {};
+			}
 			
 			_particleMeshes = particleMeshes;
 			_instanceProperties = instanceProperties;
@@ -44,6 +57,11 @@ package away3d.entities
 					addChild(mesh);
 				}
 			}
+		}
+		
+		public function get customParamters():Object
+		{
+			return _customParamters;
 		}
 		
 		public function get particleMeshes():Vector.<Mesh>
@@ -93,7 +111,7 @@ package away3d.entities
 			{
 				newMeshes[i] = _particleMeshes[i].clone() as Mesh;
 			}
-			var clone:ParticleGroup = new ParticleGroup(newMeshes, _instanceProperties);
+			var clone:ParticleGroup = new ParticleGroup(newMeshes, _instanceProperties, customParamters);
 			clone.pivotPoint = pivotPoint;
 			clone.transform = transform;
 			clone.partition = partition;

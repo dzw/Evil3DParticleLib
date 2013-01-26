@@ -1,7 +1,7 @@
 package away3d.loaders.parsers.particleSubParsers.values.setters.property
 {
 	import away3d.animators.data.ParticleProperties;
-	import away3d.loaders.parsers.particleSubParsers.utils.ParticleInstanceProperty;
+	import away3d.animators.data.ParticleInstanceProperty;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
 	
 	import flash.geom.Vector3D;

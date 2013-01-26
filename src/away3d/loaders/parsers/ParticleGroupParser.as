@@ -4,7 +4,7 @@ package away3d.loaders.parsers
 	import away3d.entities.Mesh;
 	import away3d.entities.ParticleGroup;
 	import away3d.loaders.misc.ResourceDependency;
-	import away3d.loaders.parsers.particleSubParsers.utils.ParticleInstanceProperty;
+	import away3d.animators.data.ParticleInstanceProperty;
 	import away3d.loaders.parsers.particleSubParsers.values.property.InstancePropertySubParser;
 	
 	import flash.net.URLRequest;
@@ -17,7 +17,7 @@ package away3d.loaders.parsers
 		private var _particleGroup:ParticleGroup;
 		private var _animationParsers:Vector.<ParticleAnimationParser>;
 		private var _instancePropertyParsers:Vector.<InstancePropertySubParser>;
-		
+		private var _customParameters:Object;
 		
 		public function ParticleGroupParser()
 		{
@@ -40,6 +40,7 @@ package away3d.loaders.parsers
 		{
 			if (_isFirstParsing)
 			{
+				_customParameters = _data.customParameters;
 				var animationDatas:Array = _data.animationDatas;
 				_animationParsers = new Vector.<ParticleAnimationParser>(animationDatas.length, true);
 				_instancePropertyParsers = new Vector.<InstancePropertySubParser>(animationDatas.length, true);
@@ -109,7 +110,7 @@ package away3d.loaders.parsers
 				}
 				particleMeshes.push(animationParser.particleMesh);
 			}
-			_particleGroup = new ParticleGroup(particleMeshes, instanceProperties);
+			_particleGroup = new ParticleGroup(particleMeshes, instanceProperties, _customParameters);
 		}
 		
 		public function get particleGroup():ParticleGroup
