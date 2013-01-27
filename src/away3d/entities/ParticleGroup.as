@@ -133,6 +133,16 @@ package away3d.entities
 			
 			return clone;
 		}
+		
+		override public function dispose():void
+		{
+			super.dispose();
+			_animator.stop();
+			for each (var mesh:Mesh in _particleMeshes)
+			{
+				mesh.dispose();
+			}
+		}
 	
 	}
 
