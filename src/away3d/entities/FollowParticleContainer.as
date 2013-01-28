@@ -1,14 +1,16 @@
 package away3d.entities
 {
 	import away3d.animators.ParticleAnimator;
+	import away3d.animators.nodes.ParticleFollowNode;
 	import away3d.animators.states.ParticleFollowState;
+	import away3d.arcane;
 	import away3d.bounds.BoundingSphere;
 	import away3d.containers.ObjectContainer3D;
-	import away3d.core.base.Object3D;
 	
 	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	
+	use namespace arcane;
 	
 	public class FollowParticleContainer extends ObjectContainer3D
 	{
@@ -16,6 +18,7 @@ package away3d.entities
 		private var _identityTransform:Matrix3D = new Matrix3D;
 		private var _followTarget:TargetObject3D;
 		private var _meshes:Vector.<Mesh> = new Vector.<Mesh>;
+		private var _updateBoundMeshes:Vector.<Mesh> = new Vector.<Mesh>;
 		
 		public function FollowParticleContainer()
 		{
@@ -35,6 +38,10 @@ package away3d.entities
 			followState.followTarget = _followTarget;
 			addChild(mesh);
 			_meshes.push(mesh);
+			if ((animator.animationSet.getAnimation("ParticleFollowLocalDynamic") as ParticleFollowNode)._usesPosition)
+			{
+				_updateBoundMeshes.push(mesh);
+			}
 		}
 		
 		public function removeFollowParticle(mesh:Mesh):void
@@ -47,7 +54,11 @@ package away3d.entities
 				throw(new Error("not a follow particle"));
 			followState.followTarget = null;
 			removeChild(mesh);
-			_meshes.splice(_meshes.indexOf(mesh), 1);
+			var index:int = _meshes.indexOf(mesh);
+			_meshes.splice(index, 1);
+			index = _updateBoundMeshes.indexOf(mesh);
+			if (index != -1)
+				_updateBoundMeshes.splice(index, 1);
 		}
 		
 		public function get originalSceneTransform():Matrix3D
@@ -62,7 +73,7 @@ package away3d.entities
 		
 		public function updateBounds(center:Vector3D):void
 		{
-			for each (var mesh:Mesh in _meshes)
+			for each (var mesh:Mesh in _updateBoundMeshes)
 			{
 				var bounds:BoundingSphere = mesh.bounds as BoundingSphere;
 				bounds.fromSphere(center, bounds.radius);
@@ -72,11 +83,9 @@ package away3d.entities
 	}
 }
 import away3d.containers.ObjectContainer3D;
-import away3d.core.math.MathConsts;
 import away3d.entities.FollowParticleContainer;
 
 import flash.geom.Matrix3D;
-import flash.geom.Orientation3D;
 import flash.geom.Vector3D;
 
 class TargetObject3D extends ObjectContainer3D
