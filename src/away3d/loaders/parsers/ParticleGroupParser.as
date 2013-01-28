@@ -34,7 +34,18 @@ package away3d.loaders.parsers
 		
 		public static function supportsData(data:*):Boolean
 		{
-			return false;
+			var serializedData:Object;
+			
+			try
+			{
+				serializedData = JSON.parse(data);
+			}
+			catch (e:Error)
+			{
+				return false;
+			}
+			
+			return serializedData.hasOwnProperty('animationDatas');
 		}
 		
 		
