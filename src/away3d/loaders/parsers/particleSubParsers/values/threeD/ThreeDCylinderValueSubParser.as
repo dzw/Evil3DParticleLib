@@ -15,7 +15,7 @@ package away3d.loaders.parsers.particleSubParsers.values.threeD
 		override public function parseAsync(data:*, frameLimit:Number = 30):void
 		{
 			super.parseAsync(data, frameLimit);
-			_setter = new ThreeDCylinderSetter(_propName, _data.innerRadius, _data.outerRadius, _data.height, _data.centerX, _data.centerY, _data.centerZ);
+			_setter = new ThreeDCylinderSetter(_propName, _data.innerRadius, _data.outerRadius, _data.height, _data.centerX, _data.centerY, _data.centerZ, _data.dX, _data.dY, _data.dZ);
 		}
 		
 		public static function get identifier():*
