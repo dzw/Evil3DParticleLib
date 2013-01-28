@@ -17,8 +17,8 @@ package away3d.entities
 		
 		private var _identityTransform:Matrix3D = new Matrix3D;
 		private var _followTarget:TargetObject3D;
-		private var _meshes:Vector.<Mesh> = new Vector.<Mesh>;
 		private var _updateBoundMeshes:Vector.<Mesh> = new Vector.<Mesh>;
+		private var _updatePositionMeshes:Vector.<Mesh> = new Vector.<Mesh>;
 		
 		public function FollowParticleContainer()
 		{
@@ -37,10 +37,13 @@ package away3d.entities
 				throw(new Error("not a follow particle"));
 			followState.followTarget = _followTarget;
 			addChild(mesh);
-			_meshes.push(mesh);
 			if ((animator.animationSet.getAnimation("ParticleFollowLocalDynamic") as ParticleFollowNode)._usesPosition)
 			{
 				_updateBoundMeshes.push(mesh);
+			}
+			else
+			{
+				_updatePositionMeshes.push(mesh);
 			}
 		}
 		
@@ -54,11 +57,11 @@ package away3d.entities
 				throw(new Error("not a follow particle"));
 			followState.followTarget = null;
 			removeChild(mesh);
-			var index:int = _meshes.indexOf(mesh);
-			_meshes.splice(index, 1);
-			index = _updateBoundMeshes.indexOf(mesh);
+			var index:int = _updateBoundMeshes.indexOf(mesh);
 			if (index != -1)
 				_updateBoundMeshes.splice(index, 1);
+			else
+				_updatePositionMeshes.splice(_updatePositionMeshes.indexOf(mesh), 1);
 		}
 		
 		public function get originalSceneTransform():Matrix3D
@@ -73,10 +76,15 @@ package away3d.entities
 		
 		public function updateBounds(center:Vector3D):void
 		{
-			for each (var mesh:Mesh in _updateBoundMeshes)
+			var mesh:Mesh;
+			for each (mesh in _updateBoundMeshes)
 			{
 				var bounds:BoundingSphere = mesh.bounds as BoundingSphere;
 				bounds.fromSphere(center, bounds.radius);
+			}
+			for each (mesh in _updatePositionMeshes)
+			{
+				mesh.position = _followTarget.specificPos;
 			}
 		
 		}
@@ -93,7 +101,7 @@ class TargetObject3D extends ObjectContainer3D
 	private var _container:FollowParticleContainer;
 	private var _helpTransform:Matrix3D = new Matrix3D;
 	
-	private var specificPos:Vector3D = new Vector3D;
+	public var specificPos:Vector3D = new Vector3D;
 	private var specificEulers:Vector3D = new Vector3D;
 	
 	public function TargetObject3D(container:FollowParticleContainer)
