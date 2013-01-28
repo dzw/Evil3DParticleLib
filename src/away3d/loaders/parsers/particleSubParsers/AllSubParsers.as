@@ -22,7 +22,7 @@ package away3d.loaders.parsers.particleSubParsers
 		public static const ALL_SHAPES:Array = [PlaneShapeSubParser, ExternalShapeSubParser, CubeShapeSubParser, SphereShapeSubParser, CylinderShapeSubParser];
 		
 		public static const ALL_ONED_VALUES:Array = [OneDConstValueSubParser, OneDRandomVauleSubParser, OneDCurveValueSubParser];
-		public static const ALL_THREED_VALUES:Array = [ThreeDConstValueSubParser, ThreeDCompositeValueSubParser, ThreeDSphereValueSubParser];
+		public static const ALL_THREED_VALUES:Array = [ThreeDConstValueSubParser, ThreeDCompositeValueSubParser, ThreeDSphereValueSubParser, ThreeDCylinderValueSubParser];
 		public static const ALL_FOURD_VALUES:Array = [FourDCompositeWithOneDValueSubParser, FourDCompositeWithThreeDValueSubParser];
 		public static const ALL_COLOR_VALUES:Array = [CompositeColorValueSubParser];
 		public static const ALL_MATRIX3DS:Array = [Matrix3DCompositeValueSubParser];

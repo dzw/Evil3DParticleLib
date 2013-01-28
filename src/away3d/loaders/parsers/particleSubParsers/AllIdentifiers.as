@@ -49,6 +49,8 @@ package away3d.loaders.parsers.particleSubParsers
 		public static const ThreeDConstValueSubParser:String = "ThreeDConstValueSubParser";
 		public static const ThreeDCompositeValueSubParser:String = "ThreeDCompositeValueSubParser";
 		public static const ThreeDSphereValueSubParser:String = "ThreeDSphereValueSubParser";
+		public static const ThreeDCylinderValueSubParser:String = "ThreeDCylinderValueSubParser";
+		
 		
 		//ALL_FOURD_VALUES
 		public static const FourDCompositeWithOneDValueSubParser:String = "FourDCompositeWithOneDValueSubParser";
