@@ -38,7 +38,12 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.matrix
 				{
 					case SCALE:
 					{
-						matrix3D.appendScale(value.x, value.y, value.z);
+						//this can support zero scale
+						var rawData:Vector.<Number> = matrix3D.rawData;
+						rawData[0] *= value.x;
+						rawData[5] *= value.y;
+						rawData[10] *= value.z;
+						matrix3D.copyRawDataFrom(rawData);
 						break;
 					}
 					case ROTATION:
