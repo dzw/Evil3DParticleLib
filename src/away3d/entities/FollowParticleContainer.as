@@ -71,10 +71,12 @@ package away3d.entities
 		
 		override public function get sceneTransform():Matrix3D
 		{
+			if (_followTarget.sceneTransformDirty)
+				updateBounds(_followTarget.position);
 			return _identityTransform;
 		}
 		
-		public function updateBounds(center:Vector3D):void
+		private function updateBounds(center:Vector3D):void
 		{
 			var mesh:Mesh;
 			for each (mesh in _updateBoundMeshes)
@@ -109,6 +111,11 @@ class TargetObject3D extends ObjectContainer3D
 		_container = container;
 	}
 	
+	public function get sceneTransformDirty():Boolean
+	{
+		return _sceneTransformDirty;
+	}
+	
 	private function validateTransform():void
 	{
 		if (_sceneTransformDirty)
@@ -130,7 +137,6 @@ class TargetObject3D extends ObjectContainer3D
 				parent = parent.parent;
 			}
 			_sceneTransformDirty = false;
-			_container.updateBounds(position);
 		}
 	}
 	
