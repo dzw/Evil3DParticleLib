@@ -6,8 +6,11 @@ package away3d.entities
 	import away3d.animators.data.ParticleInstanceProperty;
 	import away3d.animators.nodes.ParticleFollowNode;
 	import away3d.animators.states.ParticleFollowState;
+	import away3d.bounds.BoundingSphere;
 	import away3d.containers.ObjectContainer3D;
 	import away3d.core.base.Object3D;
+	
+	import flash.geom.Vector3D;
 	
 	
 	public class ParticleGroup extends ObjectContainer3D
@@ -113,6 +116,10 @@ package away3d.entities
 			for (i = 0; i < len; i++)
 			{
 				newMeshes[i] = _particleMeshes[i].clone() as Mesh;
+				//TODO: the Away3D doesn't allow to disable the bounds' update, need to change it in next cycle
+				var bounds:BoundingSphere = _particleMeshes[i].bounds as BoundingSphere;
+				newMeshes[i].bounds = new BoundingSphere();
+				newMeshes[i].bounds.fromSphere(new Vector3D, bounds.radius);
 			}
 			var clone:ParticleGroup = new ParticleGroup(newMeshes, _instanceProperties, customParamters, _eventList);
 			clone.pivotPoint = pivotPoint;
