@@ -38,6 +38,9 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.threeD
 				direction.x = 1;
 			direction.normalize();
 			direction.scaleBy(radius);
+			direction.x += _centerX;
+			direction.y += _centerY;
+			direction.z += _centerZ;
 			return direction;
 		}
 	}
