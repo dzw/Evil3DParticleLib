@@ -71,6 +71,26 @@ package away3d.entities
 		
 		override public function get sceneTransform():Matrix3D
 		{
+			if (_sceneTransformDirty)
+			{
+				var scaleX:Number = this.scaleX;
+				var scaleY:Number = this.scaleY;
+				var scaleZ:Number = this.scaleZ;
+				var parentContainer:ObjectContainer3D = parent;
+				while (parentContainer)
+				{
+					scaleX *= parentContainer.scaleX;
+					scaleY *= parentContainer.scaleY;
+					scaleZ *= parentContainer.scaleZ;
+					parentContainer = parentContainer.parent;
+				}
+				var rawData:Vector.<Number> = _identityTransform.rawData;
+				rawData[0] = scaleX;
+				rawData[5] = scaleY;
+				rawData[10] = scaleZ;
+				trace(rawData[0], rawData[5], rawData[10]);
+				_identityTransform.copyRawDataFrom(rawData);
+			}
 			if (_followTarget.sceneTransformDirty)
 				updateBounds(_followTarget.position);
 			return _identityTransform;
