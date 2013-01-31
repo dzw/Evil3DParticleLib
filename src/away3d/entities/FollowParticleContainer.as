@@ -133,6 +133,9 @@ class TargetObject3D extends ObjectContainer3D
 			_helpTransform.copyFrom(_container.originalSceneTransform);
 			var comps:Vector.<Vector3D> = _helpTransform.decompose();
 			this.specificPos = comps[0];
+			specificPos.x /= comps[2].x;
+			specificPos.y /= comps[2].y;
+			specificPos.z /= comps[2].z;
 			//TODO: find a better way to implement it
 			specificEulers.x = 0;
 			specificEulers.y = 0;
