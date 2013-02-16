@@ -41,6 +41,9 @@ package away3d.animators
 			for (var index:int; index < numAnimator; index++)
 			{
 				var animator:ParticleAnimator = animators[index];
+				//cause the animator.absoluteTime to be 0
+				animator.update( -animator.absoluteTime / animator.playbackSpeed + animator.time);
+				
 				animator.resetTime(_absoluteTime + animatorTimeOffset[index]);
 			}
 		}
