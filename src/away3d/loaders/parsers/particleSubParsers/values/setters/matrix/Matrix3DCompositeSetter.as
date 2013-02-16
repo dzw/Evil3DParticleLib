@@ -14,7 +14,8 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.matrix
 		public static const ROTATION:int = 1;
 		public static const TANSLATION:int = 0;
 		
-		private var _transforms:Vector.<SetterBase>
+		private static var _scaleHelpMatrix:Matrix3D = new Matrix3D;
+		private var _transforms:Vector.<SetterBase>;
 		
 		public function Matrix3DCompositeSetter(propName:String, transforms:Vector.<SetterBase>)
 		{
@@ -39,11 +40,12 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.matrix
 					case SCALE:
 					{
 						//this can support zero scale
-						var rawData:Vector.<Number> = matrix3D.rawData;
-						rawData[0] *= value.x;
-						rawData[5] *= value.y;
-						rawData[10] *= value.z;
-						matrix3D.copyRawDataFrom(rawData);
+						var rawData:Vector.<Number> = _scaleHelpMatrix.rawData;
+						rawData[0] = value.x;
+						rawData[5] = value.y;
+						rawData[10] = value.z;
+						_scaleHelpMatrix.copyRawDataFrom(rawData);
+						matrix3D.append(_scaleHelpMatrix);
 						break;
 					}
 					case ROTATION:
