@@ -12,8 +12,6 @@ package away3d.loaders.parsers.particleSubParsers.values.threeD
 	public class ThreeDConstValueSubParser extends ValueSubParserBase
 	{
 		
-		private var _value:Vector3D;
-		
 		public function ThreeDConstValueSubParser(propName:String)
 		{
 			super(propName, CONST_VALUE);
