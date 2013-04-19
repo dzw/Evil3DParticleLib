@@ -29,7 +29,7 @@ package away3d.loaders.parsers
 		public static function supportsType(extension:String):Boolean
 		{
 			extension = extension.toLowerCase();
-			return extension == "grp";
+			return extension == "awp";
 		}
 		
 		public static function supportsData(data:*):Boolean
