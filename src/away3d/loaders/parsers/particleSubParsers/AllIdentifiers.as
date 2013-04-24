@@ -19,6 +19,7 @@ package away3d.loaders.parsers.particleSubParsers
 		public static const ParticleBezierCurveNodeSubParser:String = "ParticleBezierCurveNodeSubParser";
 		public static const ParticleSpriteSheetNodeSubParser:String = "ParticleSpriteSheetNodeSubParser";
 		public static const ParticleRotateToHeadingNodeSubParser:String = "ParticleRotateToHeadingNodeSubParser";
+		public static const ParticleSegmentedColorNodeSubParser:String = "ParticleSegmentedColorNodeSubParser";
 		
 		
 		
@@ -59,6 +60,7 @@ package away3d.loaders.parsers.particleSubParsers
 		
 		//ALL_COLOR_VALUES
 		public static const CompositeColorValueSubParser:String = "CompositeColorValueSubParser";
+		public static const ConstColorValueSubParser:String = "ConstColorValueSubParser";
 		
 		//ALL_MATRIX3D
 		public static const Matrix3DCompositeValueSubParser:String = "Matrix3DCompositeValueSubParser";

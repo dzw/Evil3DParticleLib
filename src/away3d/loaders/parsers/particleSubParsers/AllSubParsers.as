@@ -13,7 +13,7 @@ package away3d.loaders.parsers.particleSubParsers
 	
 	public class AllSubParsers
 	{
-		public static const ALL_PARTICLE_NODES:Array = [ParticleTimeNodeSubParser, ParticleVelocityNodeSubParser, ParticleAccelerationNodeSubParser, ParticlePositionNodeSubParser, ParticleBillboardNodeSubParser, ParticleFollowNodeSubParser, ParticleScaleNodeSubParser, ParticleColorNodeSubParser, ParticleOscillatorNodeSubParser, ParticleRotationalVelocityNodeSubParser, ParticleOrbitNodeSubParser, ParticleBezierCurveNodeSubParser, ParticleSpriteSheetNodeSubParser, ParticleRotateToHeadingNodeSubParser];
+		public static const ALL_PARTICLE_NODES:Array = [ParticleTimeNodeSubParser, ParticleVelocityNodeSubParser, ParticleAccelerationNodeSubParser, ParticlePositionNodeSubParser, ParticleBillboardNodeSubParser, ParticleFollowNodeSubParser, ParticleScaleNodeSubParser, ParticleColorNodeSubParser, ParticleOscillatorNodeSubParser, ParticleRotationalVelocityNodeSubParser, ParticleOrbitNodeSubParser, ParticleBezierCurveNodeSubParser, ParticleSpriteSheetNodeSubParser, ParticleRotateToHeadingNodeSubParser, ParticleSegmentedColorNodeSubParser];
 		
 		public static const ALL_GEOMETRIES:Array = [SingleGeometrySubParser];
 		
@@ -24,7 +24,7 @@ package away3d.loaders.parsers.particleSubParsers
 		public static const ALL_ONED_VALUES:Array = [OneDConstValueSubParser, OneDRandomVauleSubParser, OneDCurveValueSubParser];
 		public static const ALL_THREED_VALUES:Array = [ThreeDConstValueSubParser, ThreeDCompositeValueSubParser, ThreeDSphereValueSubParser, ThreeDCylinderValueSubParser];
 		public static const ALL_FOURD_VALUES:Array = [FourDCompositeWithOneDValueSubParser, FourDCompositeWithThreeDValueSubParser];
-		public static const ALL_COLOR_VALUES:Array = [CompositeColorValueSubParser];
+		public static const ALL_COLOR_VALUES:Array = [CompositeColorValueSubParser, ParticleSegmentedColorNodeSubParser];
 		public static const ALL_MATRIX3DS:Array = [Matrix3DCompositeValueSubParser];
 		
 		public static const ALL_PROPERTIES:Array = [InstancePropertySubParser];
