@@ -20,6 +20,8 @@ package away3d.loaders.parsers.particleSubParsers
 		public static const ParticleSpriteSheetNodeSubParser:String = "ParticleSpriteSheetNodeSubParser";
 		public static const ParticleRotateToHeadingNodeSubParser:String = "ParticleRotateToHeadingNodeSubParser";
 		public static const ParticleSegmentedColorNodeSubParser:String = "ParticleSegmentedColorNodeSubParser";
+		public static const ParticleInitialColorNodeSubParser:String = "ParticleInitialColorNodeSubParser";
+		
 		
 		
 		
