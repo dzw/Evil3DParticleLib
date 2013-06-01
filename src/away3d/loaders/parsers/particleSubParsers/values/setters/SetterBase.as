@@ -17,6 +17,11 @@ package away3d.loaders.parsers.particleSubParsers.values.setters
 			return _propName;
 		}
 		
+		public function startPropsGenerating():void
+		{
+		
+		}
+		
 		public function setProps(prop:ParticleProperties):void
 		{
 			throw(new AbstractMethodError());
@@ -25,6 +30,11 @@ package away3d.loaders.parsers.particleSubParsers.values.setters
 		public function generateOneValue(index:int = 0, total:int = 1):*
 		{
 			throw(new AbstractMethodError());
+		}
+		
+		public function finishPropsGenerating():void
+		{
+		
 		}
 	
 	}

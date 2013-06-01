@@ -191,9 +191,26 @@ class ParticleInitializer
 	
 	public function initHandler(prop:ParticleProperties):void
 	{
-		for each (var setter:SetterBase in _setters)
+		var setter:SetterBase;
+		if (prop.index == 0)
+		{
+			for each (setter in _setters)
+			{
+				setter.startPropsGenerating();
+			}
+		}
+		
+		for each (setter in _setters)
 		{
 			setter.setProps(prop);
+		}
+		
+		if (prop.index == prop.total - 1)
+		{
+			for each (setter in _setters)
+			{
+				setter.finishPropsGenerating();
+			}
 		}
 	}
 }
