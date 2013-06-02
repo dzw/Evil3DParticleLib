@@ -65,6 +65,22 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.matrix
 			}
 			return matrix3D;
 		}
+		
+		override public function startPropsGenerating(prop:ParticleProperties):void
+		{
+			for each (var setterBase:SetterBase in _transforms)
+			{
+				setterBase.startPropsGenerating(prop);
+			}
+		}
+		
+		override public function finishPropsGenerating(prop:ParticleProperties):void
+		{
+			for each (var setterBase:SetterBase in _transforms)
+			{
+				setterBase.finishPropsGenerating(prop);
+			}
+		}
 	
 	}
 

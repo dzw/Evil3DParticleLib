@@ -38,5 +38,33 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.property
 			var playSpeed:Number = _playSpeedSetter ? _playSpeedSetter.generateOneValue(index, total) : 1;
 			return new ParticleInstanceProperty(position, rotation, scale, timeOffset, playSpeed);
 		}
+		
+		override public function startPropsGenerating(prop:ParticleProperties):void
+		{
+			if (_positionSetter)
+				_positionSetter.startPropsGenerating(prop);
+			if (_rotationSetter)
+				_rotationSetter.startPropsGenerating(prop);
+			if (_scaleSetter)
+				_scaleSetter.startPropsGenerating(prop);
+			if (_timeOffsetSetter)
+				_timeOffsetSetter.startPropsGenerating(prop);
+			if (_playSpeedSetter)
+				_playSpeedSetter.startPropsGenerating(prop);
+		}
+		
+		override public function finishPropsGenerating(prop:ParticleProperties):void
+		{
+			if (_positionSetter)
+				_positionSetter.finishPropsGenerating(prop);
+			if (_rotationSetter)
+				_rotationSetter.finishPropsGenerating(prop);
+			if (_scaleSetter)
+				_scaleSetter.finishPropsGenerating(prop);
+			if (_timeOffsetSetter)
+				_timeOffsetSetter.finishPropsGenerating(prop);
+			if (_playSpeedSetter)
+				_playSpeedSetter.finishPropsGenerating(prop);
+		}
 	}
 }

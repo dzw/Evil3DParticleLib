@@ -49,5 +49,47 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.color
 			var ao:Number = _alphaOffsetSetter ? _alphaOffsetSetter.generateOneValue(index, total) : 0;
 			return new ColorTransform(rm, gm, bm, am, ro, go, bo, ao);
 		}
+		
+		override public function startPropsGenerating(prop:ParticleProperties):void
+		{
+			if (_redMultiplierSetter)
+				_redMultiplierSetter.startPropsGenerating(prop);
+			if (_greenMultiplierSetter)
+				_greenMultiplierSetter.startPropsGenerating(prop);
+			if (_blueMultiplierSetter)
+				_blueMultiplierSetter.startPropsGenerating(prop);
+			if (_alphaMultiplierSetter)
+				_alphaMultiplierSetter.startPropsGenerating(prop);
+			
+			if (_redOffsetSetter)
+				_redOffsetSetter.startPropsGenerating(prop);
+			if (_greenOffsetSetter)
+				_greenOffsetSetter.startPropsGenerating(prop);
+			if (_blueOffsetSetter)
+				_blueOffsetSetter.startPropsGenerating(prop);
+			if (_alphaOffsetSetter)
+				_alphaOffsetSetter.startPropsGenerating(prop);
+		}
+		
+		override public function finishPropsGenerating(prop:ParticleProperties):void
+		{
+			if (_redMultiplierSetter)
+				_redMultiplierSetter.finishPropsGenerating(prop);
+			if (_greenMultiplierSetter)
+				_greenMultiplierSetter.finishPropsGenerating(prop);
+			if (_blueMultiplierSetter)
+				_blueMultiplierSetter.finishPropsGenerating(prop);
+			if (_alphaMultiplierSetter)
+				_alphaMultiplierSetter.finishPropsGenerating(prop);
+			
+			if (_redOffsetSetter)
+				_redOffsetSetter.finishPropsGenerating(prop);
+			if (_greenOffsetSetter)
+				_greenOffsetSetter.finishPropsGenerating(prop);
+			if (_blueOffsetSetter)
+				_blueOffsetSetter.finishPropsGenerating(prop);
+			if (_alphaOffsetSetter)
+				_alphaOffsetSetter.finishPropsGenerating(prop);
+		}
 	}
 }

@@ -26,7 +26,7 @@ package away3d.loaders.parsers.particleSubParsers
 		public static const ALL_FOURD_VALUES:Array = [FourDCompositeWithOneDValueSubParser, FourDCompositeWithThreeDValueSubParser];
 		public static const ALL_COLOR_VALUES:Array = [CompositeColorValueSubParser, ParticleSegmentedColorNodeSubParser];
 		public static const ALL_MATRIX3DS:Array = [Matrix3DCompositeValueSubParser];
-		
+		public static const ALL_GLOBAL_VALUES:Array = [];
 		public static const ALL_PROPERTIES:Array = [InstancePropertySubParser];
 	}
 

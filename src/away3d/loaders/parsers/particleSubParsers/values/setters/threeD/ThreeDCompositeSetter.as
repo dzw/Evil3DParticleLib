@@ -31,6 +31,26 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.threeD
 			var z:Number = _setterZ.generateOneValue(index, total);
 			return new Vector3D(x, y, z);
 		}
+		
+		override public function startPropsGenerating(prop:ParticleProperties):void
+		{
+			if (_setterX)
+				_setterX.startPropsGenerating(prop);
+			if (_setterY)
+				_setterY.startPropsGenerating(prop);
+			if (_setterZ)
+				_setterZ.startPropsGenerating(prop);
+		}
+		
+		override public function finishPropsGenerating(prop:ParticleProperties):void
+		{
+			if (_setterX)
+				_setterX.finishPropsGenerating(prop);
+			if (_setterY)
+				_setterY.finishPropsGenerating(prop);
+			if (_setterZ)
+				_setterZ.finishPropsGenerating(prop);
+		}
 	}
 
 }

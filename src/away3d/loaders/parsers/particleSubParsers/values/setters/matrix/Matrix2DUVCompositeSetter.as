@@ -35,6 +35,16 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.matrix
 			matrix.translate(column / _numColumns, row / _numRows);
 			return matrix;
 		}
+		
+		override public function startPropsGenerating(prop:ParticleProperties):void
+		{
+			_selectedValue.startPropsGenerating(prop);
+		}
+		
+		override public function finishPropsGenerating(prop:ParticleProperties):void
+		{
+			_selectedValue.finishPropsGenerating(prop);
+		}
 	
 	}
 }

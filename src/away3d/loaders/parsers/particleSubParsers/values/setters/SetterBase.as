@@ -17,7 +17,7 @@ package away3d.loaders.parsers.particleSubParsers.values.setters
 			return _propName;
 		}
 		
-		public function startPropsGenerating():void
+		public function startPropsGenerating(prop:ParticleProperties):void
 		{
 		
 		}
@@ -32,7 +32,7 @@ package away3d.loaders.parsers.particleSubParsers.values.setters
 			throw(new AbstractMethodError());
 		}
 		
-		public function finishPropsGenerating():void
+		public function finishPropsGenerating(prop:ParticleProperties):void
 		{
 		
 		}

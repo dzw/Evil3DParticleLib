@@ -17,6 +17,18 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.fourD
 			_setterW = setterW;
 		}
 		
+		override public function startPropsGenerating(prop:ParticleProperties):void
+		{
+			_setter3D.startPropsGenerating(prop);
+			_setterW.startPropsGenerating(prop);
+		}
+		
+		override public function finishPropsGenerating(prop:ParticleProperties):void
+		{
+			_setter3D.finishPropsGenerating(prop);
+			_setterW.finishPropsGenerating(prop);
+		}
+		
 		override public function setProps(prop:ParticleProperties):void
 		{
 			prop[_propName] = generateOneValue(prop.index, prop.total);

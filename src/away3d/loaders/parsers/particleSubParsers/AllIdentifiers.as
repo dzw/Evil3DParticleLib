@@ -46,6 +46,7 @@ package away3d.loaders.parsers.particleSubParsers
 		public static const OneDConstValueSubParser:String = "OneDConstValueSubParser";
 		public static const OneDRandomVauleSubParser:String = "OneDRandomVauleSubParser";
 		public static const OneDCurveValueSubParser:String = "OneDCurveValueSubParser";
+		public static const LuaExtractSubParser:String = "LuaExtractSubParser";
 		
 		
 		//ALL_THREED_VALUES
@@ -67,6 +68,9 @@ package away3d.loaders.parsers.particleSubParsers
 		//ALL_MATRIX3D
 		public static const Matrix3DCompositeValueSubParser:String = "Matrix3DCompositeValueSubParser";
 		public static const Matrix2DUVCompositeValueSubParser:String = "Matrix2DUVCompositeValueSubParser";
+		
+		//ALL_GOLBAL_VALUES
+		public static const LuaGeneratorSubParser:String = "LuaGeneratorSubParser";
 		
 		//ALL_PROPERTIES
 		public static const InstancePropertySubParser:String = "InstancePropertySubParser";

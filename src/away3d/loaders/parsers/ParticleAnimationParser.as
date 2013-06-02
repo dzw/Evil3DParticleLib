@@ -12,7 +12,9 @@ package away3d.loaders.parsers
 	import away3d.loaders.parsers.particleSubParsers.nodes.ParticleNodeSubParserBase;
 	import away3d.loaders.parsers.particleSubParsers.nodes.ParticleTimeNodeSubParser;
 	import away3d.loaders.parsers.particleSubParsers.utils.MatchingTool;
+	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
+	
 	import flash.geom.Vector3D;
 	import flash.net.URLRequest;
 	
@@ -30,6 +32,7 @@ package away3d.loaders.parsers
 		private var _nodeParsers:Vector.<ParticleNodeSubParserBase>;
 		private var _particleMaterialParser:MaterialSubParserBase;
 		private var _particlegeometryParser:ParticleGeometryParser;
+		private var _globalValues:Vector.<ValueSubParserBase>;
 		
 		
 		public function ParticleAnimationParser()
@@ -91,6 +94,27 @@ package away3d.loaders.parsers
 					_nodeParsers.push(nodeParser);
 				}
 				
+				var globalValuesDatas:Array = _data.globalValues;
+				if (globalValuesDatas)
+				{
+					_globalValues = new Vector.<ValueSubParserBase>;
+					for each (var valuedata:Object in globalValuesDatas)
+					{
+						subData = valuedata.data;
+						id = valuedata.id;
+						parserCls = MatchingTool.getMatchedClass(id, AllSubParsers.ALL_GLOBAL_VALUES);
+						if (!parserCls)
+						{
+							dieWithError("Unknown node parser");
+						}
+						var valueParser:ValueSubParserBase = new parserCls(null);
+						addSubParser(valueParser);
+						valueParser.parseAsync(subData);
+						_globalValues.push(valueParser);
+					}
+				}
+				
+				
 				//geometry:
 				var geometryData:Object = _data.geometry;
 				if (geometryData.embed)
@@ -138,6 +162,13 @@ package away3d.loaders.parsers
 			_particleAnimationSet = new ParticleAnimationSet(timeNode.usesDuration, timeNode.usesLooping, timeNode.usesDelay);
 			var len:int = _nodeParsers.length;
 			var handlers:Vector.<SetterBase> = new Vector.<SetterBase>();
+			if (_globalValues)
+			{
+				for each (var valueParser:ValueSubParserBase in _globalValues)
+				{
+					handlers.push(valueParser.setter);
+				}
+			}
 			for (var i:int; i < _nodeParsers.length; i++)
 			{
 				if (i != 0)
@@ -196,7 +227,7 @@ class ParticleInitializer
 		{
 			for each (setter in _setters)
 			{
-				setter.startPropsGenerating();
+				setter.startPropsGenerating(prop);
 			}
 		}
 		
@@ -209,7 +240,7 @@ class ParticleInitializer
 		{
 			for each (setter in _setters)
 			{
-				setter.finishPropsGenerating();
+				setter.finishPropsGenerating(prop);
 			}
 		}
 	}
