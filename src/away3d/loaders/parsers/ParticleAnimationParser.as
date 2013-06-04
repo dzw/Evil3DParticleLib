@@ -61,8 +61,8 @@ package away3d.loaders.parsers
 				var object:Object = _data.material;
 				var id:Object = object.id;
 				var subData:Object = object.data;
-				var parserCls:Class;
-				if (!(parserCls = MatchingTool.getMatchedClass(id, AllSubParsers.ALL_MATERIALS)))
+				var parserCls:Class = MatchingTool.getMatchedClass(id, AllSubParsers.ALL_MATERIALS);
+				if (!parserCls)
 				{
 					dieWithError("Unknown matierla parser");
 				}
