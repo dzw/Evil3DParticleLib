@@ -10,13 +10,15 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.threeD
 		private var _setterX:SetterBase;
 		private var _setterY:SetterBase;
 		private var _setterZ:SetterBase;
+		private var _isometric:Boolean;
 		
-		public function ThreeDCompositeSetter(propName:String, setterX:SetterBase, setterY:SetterBase, setterZ:SetterBase)
+		public function ThreeDCompositeSetter(propName:String, setterX:SetterBase, setterY:SetterBase, setterZ:SetterBase, isometric:Boolean = false)
 		{
 			super(propName);
 			_setterX = setterX;
 			_setterY = setterY;
 			_setterZ = setterZ;
+			_isometric = isometric;
 		}
 		
 		override public function setProps(prop:ParticleProperties):void
@@ -27,8 +29,8 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.threeD
 		override public function generateOneValue(index:int = 0, total:int = 1):*
 		{
 			var x:Number = _setterX.generateOneValue(index, total);
-			var y:Number = _setterY.generateOneValue(index, total);
-			var z:Number = _setterZ.generateOneValue(index, total);
+			var y:Number = _isometric ? x : _setterY.generateOneValue(index, total);
+			var z:Number = _isometric ? x : _setterZ.generateOneValue(index, total);
 			return new Vector3D(x, y, z);
 		}
 		

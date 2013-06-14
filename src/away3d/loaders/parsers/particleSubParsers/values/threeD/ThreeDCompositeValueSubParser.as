@@ -13,6 +13,7 @@ package away3d.loaders.parsers.particleSubParsers.values.threeD
 		private var _valueX:ValueSubParserBase;
 		private var _valueY:ValueSubParserBase;
 		private var _valueZ:ValueSubParserBase;
+		private var _isometric:Boolean;
 		
 		public function ThreeDCompositeValueSubParser(propName:String)
 		{
@@ -24,6 +25,7 @@ package away3d.loaders.parsers.particleSubParsers.values.threeD
 		{
 			if (_isFirstParsing)
 			{
+				_isometric = _data.isometric;
 				//for x
 				var object:Object = _data.x;
 				var Id:Object = object.id;
@@ -79,9 +81,9 @@ package away3d.loaders.parsers.particleSubParsers.values.threeD
 		
 		private function initSetter():void
 		{
-			if (_valueX.valueType == CONST_VALUE && _valueY.valueType == CONST_VALUE && _valueZ.valueType == CONST_VALUE)
+			if (_valueX.valueType == CONST_VALUE && (_isometric || (_valueY.valueType == CONST_VALUE && _valueZ.valueType == CONST_VALUE)))
 				_valueType = CONST_VALUE;
-			_setter = new ThreeDCompositeSetter(_propName, _valueX.setter, _valueY.setter, _valueZ.setter);
+			_setter = new ThreeDCompositeSetter(_propName, _valueX.setter, _valueY.setter, _valueZ.setter, _isometric);
 		}
 		
 		public static function get identifier():*
