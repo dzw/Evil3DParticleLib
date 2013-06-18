@@ -19,6 +19,7 @@ package away3d.entities
 		private var _followTarget:TargetObject3D;
 		private var _updateBoundMeshes:Vector.<Mesh> = new Vector.<Mesh>;
 		private var _updatePositionMeshes:Vector.<Mesh> = new Vector.<Mesh>;
+		private var _tempCenter:Vector3D = new Vector3D;
 		
 		public function FollowParticleContainer()
 		{
@@ -90,8 +91,12 @@ package away3d.entities
 			var mesh:Mesh;
 			for each (mesh in _updateBoundMeshes)
 			{
+				_tempCenter.copyFrom(center);
+				_tempCenter.x /= mesh.scaleX;
+				_tempCenter.y /= mesh.scaleY;
+				_tempCenter.z /= mesh.scaleZ;
 				var bounds:BoundingSphere = mesh.bounds as BoundingSphere;
-				bounds.fromSphere(center, bounds.radius);
+				bounds.fromSphere(_tempCenter, bounds.radius);
 			}
 			for each (mesh in _updatePositionMeshes)
 			{
