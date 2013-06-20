@@ -13,7 +13,7 @@ package away3d.loaders.parsers.particleSubParsers
 	
 	public class AllSubParsers
 	{
-		public static const ALL_PARTICLE_NODES:Array = [ParticleTimeNodeSubParser, ParticleVelocityNodeSubParser, ParticleAccelerationNodeSubParser, ParticlePositionNodeSubParser, ParticleBillboardNodeSubParser, ParticleFollowNodeSubParser, ParticleScaleNodeSubParser, ParticleColorNodeSubParser, ParticleOscillatorNodeSubParser, ParticleRotationalVelocityNodeSubParser, ParticleOrbitNodeSubParser, ParticleBezierCurveNodeSubParser, ParticleSpriteSheetNodeSubParser, ParticleRotateToHeadingNodeSubParser, ParticleSegmentedColorNodeSubParser, ParticleInitialColorNodeSubParser];
+		public static const ALL_PARTICLE_NODES:Array = [ParticleTimeNodeSubParser, ParticleVelocityNodeSubParser, ParticleAccelerationNodeSubParser, ParticlePositionNodeSubParser, ParticleBillboardNodeSubParser, ParticleFollowNodeSubParser, ParticleScaleNodeSubParser, ParticleColorNodeSubParser, ParticleOscillatorNodeSubParser, ParticleRotationalVelocityNodeSubParser, ParticleOrbitNodeSubParser, ParticleBezierCurveNodeSubParser, ParticleSpriteSheetNodeSubParser, ParticleRotateToHeadingNodeSubParser, ParticleSegmentedColorNodeSubParser, ParticleInitialColorNodeSubParser, ParticleSegmentedScaleNodeSubParser];
 		
 		public static const ALL_GEOMETRIES:Array = [SingleGeometrySubParser];
 		
