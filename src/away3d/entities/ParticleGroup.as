@@ -65,6 +65,21 @@ package away3d.entities
 			}
 		}
 		
+		override public function get zOffset():int 
+		{
+			return super.zOffset;
+		}
+		
+		override public function set zOffset(value:int):void 
+		{
+			super.zOffset = value;
+			
+			for (var i:int = 0; i < particleMeshes.length; i++)
+			{
+				particleMeshes[i].zOffset = value;
+			}
+		}
+		
 		public function get customParamters():Object
 		{
 			return _customParamters;
@@ -132,7 +147,7 @@ package away3d.entities
 			for (i = 0; i < len; i++)
 			{
 				var child:ObjectContainer3D = getChildAt(i);
-				if (_followParticleContainer != child && _particleMeshes.indexOf(child) == -1)
+				if (_followParticleContainer != child && _particleMeshes.indexOf(child as Mesh) == -1)
 				{
 					clone.addChild(ObjectContainer3D(child.clone()));
 				}
