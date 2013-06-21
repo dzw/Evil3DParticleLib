@@ -193,6 +193,10 @@ package away3d.loaders.parsers
 			{
 				_particleMesh.shareAnimationGeometry = _data.shareAnimationGeometry;
 			}
+			if (_data.hasOwnProperty("name"))
+			{
+				_particleMesh.name = _data.name;
+			}
 			//_particleMesh.showBounds = true;
 			_particleMesh.animator = _particleAnimator;
 			finalizeAsset(_particleMesh);
