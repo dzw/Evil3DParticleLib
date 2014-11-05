@@ -135,6 +135,20 @@ package away3d.loaders.parsers
 				particleMeshes.push(animationParser.particleMesh);
 			}
 			_particleGroup = new ParticleGroup(particleMeshes, instanceProperties, _customParameters, _particleEvents);
+			CONFIG::Debug {
+				if(_fileName)
+				{
+					_particleGroup.filePath = decodeURI(_fileName);
+					var base:String = (_fileName.indexOf('?') > 0)? _fileName.split('?')[0] : _fileName;
+					var i:int = base.lastIndexOf('/')+1;
+					base = base.substr(i);
+					_particleGroup.fileName = decodeURI(base);
+					i = base.lastIndexOf('.');
+					base = base.substr(0, i);
+					_particleGroup.name = decodeURI(base);
+					
+				}
+			}
 		}
 		
 		public function get particleGroup():ParticleGroup

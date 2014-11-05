@@ -26,6 +26,11 @@ package away3d.entities
 		protected var _customParamters:Object;
 		protected var _eventList:Vector.<ParticleGroupEventProperty>;
 		
+	CONFIG::Debug { 
+		public var filePath:String;
+		public var fileName:String;
+	}
+		
 		public function ParticleGroup(particleMeshes:Vector.<Mesh>, instanceProperties:Vector.<ParticleInstanceProperty>, customParameters:Object = null, eventList:Vector.<ParticleGroupEventProperty> = null)
 		{
 			_followParticleContainer = new FollowParticleContainer();
@@ -142,6 +147,7 @@ package away3d.entities
 			clone.partition = partition;
 			clone.name = name;
 			clone.showBounds = showBounds;
+			CONFIG::Debug { clone.filePath = filePath; }
 			
 			len = numChildren;
 			for (i = 0; i < len; i++)
