@@ -147,7 +147,10 @@ package away3d.entities
 			clone.partition = partition;
 			clone.name = name;
 			clone.showBounds = showBounds;
-			CONFIG::Debug { clone.filePath = filePath; }
+			CONFIG::Debug { 
+				clone.filePath = filePath;
+				clone.fileName = fileName;
+			}
 			
 			len = numChildren;
 			for (i = 0; i < len; i++)
