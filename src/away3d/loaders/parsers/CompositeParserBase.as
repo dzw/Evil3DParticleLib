@@ -141,6 +141,12 @@ package away3d.loaders.parsers
 			_root == this ? super.pauseAndRetrieveDependencies() : null;
 		}
 		
+		override public function resumeParsingAfterDependencies():void
+		{
+			super.resumeParsingAfterDependencies();
+			onInterval();
+		}
+		
 		override public function get parsingPaused():Boolean
 		{
 			return _root == this ? super.parsingPaused : _root.parsingPaused;
