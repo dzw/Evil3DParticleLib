@@ -1,5 +1,8 @@
 package away3d.loaders.parsers.particleSubParsers.materials
 {
+	import flash.net.URLRequest;
+	
+	import away3d.Away3D;
 	import away3d.arcane;
 	import away3d.library.assets.AssetType;
 	import away3d.library.assets.IAsset;
@@ -8,8 +11,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 	import away3d.materials.MaterialBase;
 	import away3d.materials.TextureMaterial;
 	import away3d.textures.Texture2DBase;
-	
-	import flash.net.URLRequest;
+
 	use namespace arcane;
 	
 	public class TextureMaterialSubParser extends MaterialSubParserBase
@@ -37,7 +39,10 @@ package away3d.loaders.parsers.particleSubParsers.materials
 				_alphaThreshold = _data.alphaThreshold;
 				if (_data.url)
 				{
-					var url:URLRequest = new URLRequest(_data.url);
+					var path:String = _data.url;
+					if(Away3D.USE_ATF_FOR_TEXTURES)
+						path+=".atf";
+					var url:URLRequest = new URLRequest(path);
 					addDependency("default1", url);
 				}
 				else
