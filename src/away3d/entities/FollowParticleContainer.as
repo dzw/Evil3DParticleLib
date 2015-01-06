@@ -1,14 +1,14 @@
 package away3d.entities
 {
+	import flash.geom.Matrix3D;
+	import flash.geom.Vector3D;
+	
+	import away3d.arcane;
 	import away3d.animators.ParticleAnimator;
 	import away3d.animators.nodes.ParticleFollowNode;
 	import away3d.animators.states.ParticleFollowState;
-	import away3d.arcane;
 	import away3d.bounds.BoundingSphere;
 	import away3d.containers.ObjectContainer3D;
-	
-	import flash.geom.Matrix3D;
-	import flash.geom.Vector3D;
 	
 	use namespace arcane;
 	
@@ -106,11 +106,12 @@ package away3d.entities
 		}
 	}
 }
-import away3d.containers.ObjectContainer3D;
-import away3d.entities.FollowParticleContainer;
-
 import flash.geom.Matrix3D;
 import flash.geom.Vector3D;
+
+import away3d.containers.ObjectContainer3D;
+import away3d.containers.SkeletonBone;
+import away3d.entities.FollowParticleContainer;
 
 class TargetObject3D extends ObjectContainer3D
 {
@@ -151,7 +152,10 @@ class TargetObject3D extends ObjectContainer3D
 				specificEulers.x += parent.rotationX;
 				specificEulers.y += parent.rotationY;
 				specificEulers.z += parent.rotationZ;
-				parent = parent.parent;
+				if(parent is SkeletonBone)//todo: add a property to skip parent, but not check SkeletonBone
+					parent = null;
+				else
+					parent = parent.parent;
 			}
 			_sceneTransformDirty = false;
 		}
