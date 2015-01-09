@@ -1,10 +1,14 @@
 package away3d.loaders.parsers
 {
+	import flash.geom.Vector3D;
+	import flash.net.URLRequest;
+	
+	import away3d.arcane;
 	import away3d.animators.ParticleAnimationSet;
 	import away3d.animators.ParticleAnimator;
-	import away3d.arcane;
 	import away3d.bounds.BoundingSphere;
 	import away3d.core.base.ParticleGeometry;
+	import away3d.entities.EntityLayerType;
 	import away3d.entities.Mesh;
 	import away3d.loaders.misc.ResourceDependency;
 	import away3d.loaders.parsers.particleSubParsers.AllSubParsers;
@@ -14,9 +18,6 @@ package away3d.loaders.parsers
 	import away3d.loaders.parsers.particleSubParsers.utils.MatchingTool;
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
-	
-	import flash.geom.Vector3D;
-	import flash.net.URLRequest;
 	
 	
 	use namespace arcane;
@@ -199,6 +200,19 @@ package away3d.loaders.parsers
 			}
 			//_particleMesh.showBounds = true;
 			_particleMesh.animator = _particleAnimator;
+			var extensions:Array = _data.extensions;
+			if (extensions)
+			{
+				for each (var extension:Object in extensions)
+				{
+					if(_data.extensions[0]["id"] == "entityLayer")
+					{
+						_particleMesh.layerType = _data.extensions[0]["data"];
+					}
+					else if (_data.extensions[0]["id"] == "heat") // compatible with old format
+						_particleMesh.layerType = EntityLayerType.HEAT_LAYER | EntityLayerType.HEAT_RENDER_COLOR;
+				}
+			}
 			finalizeAsset(_particleMesh);
 		}
 		
