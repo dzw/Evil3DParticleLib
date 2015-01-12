@@ -81,10 +81,13 @@ package away3d.loaders.parsers
 					}
 					if (animationData.embed)
 					{
-						var animationParser:ParticleAnimationParser = new ParticleAnimationParser();
-						addSubParser(animationParser);
-						animationParser.parseAsync(animationData.data);
-						_animationParsers[index] = animationParser;
+						if(!animationData.hasOwnProperty("enable") || animationData.enable)
+						{
+							var animationParser:ParticleAnimationParser = new ParticleAnimationParser();
+							addSubParser(animationParser);
+							animationParser.parseAsync(animationData.data);
+							_animationParsers[index] = animationParser;
+						}
 					}
 					else
 					{
@@ -128,11 +131,14 @@ package away3d.loaders.parsers
 			for (var index:int; index < _animationParsers.length; index++)
 			{
 				var animationParser:ParticleAnimationParser = _animationParsers[index];
-				if (_instancePropertyParsers[index])
+				if(animationParser)//有可能被这个动画被禁止了
 				{
-					instanceProperties[index] = ParticleInstanceProperty(_instancePropertyParsers[index].setter.generateOneValue());
+					if (_instancePropertyParsers[index])
+					{
+						instanceProperties[index] = ParticleInstanceProperty(_instancePropertyParsers[index].setter.generateOneValue());
+					}
+					particleMeshes.push(animationParser.particleMesh);
 				}
-				particleMeshes.push(animationParser.particleMesh);
 			}
 			_particleGroup = new ParticleGroup(particleMeshes, instanceProperties, _customParameters, _particleEvents);
 			CONFIG::Debug {
