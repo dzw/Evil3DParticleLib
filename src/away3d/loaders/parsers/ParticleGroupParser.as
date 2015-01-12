@@ -126,7 +126,7 @@ package away3d.loaders.parsers
 		{
 			var len:int = _animationParsers.length;
 			var particleMeshes:Vector.<Mesh> = new Vector.<Mesh>;
-			var instanceProperties:Vector.<ParticleInstanceProperty> = new Vector.<ParticleInstanceProperty>(len, true);
+			var instanceProperties:Vector.<ParticleInstanceProperty> = new Vector.<ParticleInstanceProperty>();
 			
 			for (var index:int; index < _animationParsers.length; index++)
 			{
@@ -134,9 +134,9 @@ package away3d.loaders.parsers
 				if(animationParser)//有可能被这个动画被禁止了
 				{
 					if (_instancePropertyParsers[index])
-					{
-						instanceProperties[index] = ParticleInstanceProperty(_instancePropertyParsers[index].setter.generateOneValue());
-					}
+						instanceProperties.push(ParticleInstanceProperty(_instancePropertyParsers[index].setter.generateOneValue()));
+					else
+						instanceProperties.push(null);
 					particleMeshes.push(animationParser.particleMesh);
 				}
 			}
