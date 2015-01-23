@@ -210,7 +210,9 @@ package away3d.loaders.parsers
 						_particleMesh.layerType = _data.extensions[0]["data"];
 					}
 					else if (_data.extensions[0]["id"] == "heat") // compatible with old format
-						_particleMesh.layerType = EntityLayerType.HEAT_LAYER | EntityLayerType.HEAT_RENDER_COLOR;
+						_particleMesh.layerType = EntityLayerType.HEAT_LAYER;
+					else if (_data.extensions[0]["id"] == "phantom")
+						_particleMesh.layerType = EntityLayerType.PHANTOM|EntityLayerType.DEFAULT;;
 				}
 			}
 			finalizeAsset(_particleMesh);
