@@ -34,7 +34,7 @@ package away3d.loaders.parsers.particleSubParsers.values.global
 				{
 					for(var i:int=0;i<_data.geoms.length;i++ )
 					{
-						addDependency(i.toString(), new URLRequest(_data.geoms[i].url));
+						addDependency(i.toString(), new URLRequest(_data.geoms[i].url), false, null, true);
 					}
 				}
 			}
