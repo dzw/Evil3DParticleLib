@@ -23,9 +23,7 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.oneD
 		{
 			if (_luaState && _varName)
 			{
-				var luaState:int = prop.luaState;
-				Lua.lua_getglobal(luaState, _varName);
-				prop[_propName] = Lua.lua_tonumberx(luaState, -1, 0);
+				prop[_propName] = getVarValue(_luaState, _varName);
 			}
 			else
 				prop[_propName] = 0;
@@ -35,11 +33,28 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.oneD
 		{
 			if (_luaState && _varName)
 			{
-				Lua.lua_getglobal(_luaState, _varName);
-				return Lua.lua_tonumberx(_luaState, -1, 0);
+				return getVarValue(_luaState, _varName);
 			}
 			else
 				return 0;
+		}
+		
+		[Inline]
+		final private function getVarValue(luaState:int, varName:String):Number
+		{
+			if(varName.indexOf(".")!=-1)// for example: pos.x
+			{
+				var vars:Array = varName.split(".");
+				Lua.lua_getglobal(luaState, vars[0]);
+				Lua.lua_getfield(luaState, -1, vars[1]);
+				Lua.lua_remove(luaState, -2);
+				return Lua.lua_tonumberx(luaState, -1, 0);
+			}
+			else
+			{
+				Lua.lua_getglobal(luaState, varName);
+				return Lua.lua_tonumberx(luaState, -1, 0);
+			}
 		}
 	}
 }
