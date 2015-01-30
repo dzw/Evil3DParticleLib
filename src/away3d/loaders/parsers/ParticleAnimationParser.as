@@ -188,8 +188,10 @@ package away3d.loaders.parsers
 			
 			//mesh:
 			_particleMesh = new Mesh(_particlegeometryParser.particleGeometry, _particleMaterialParser.material);
+			_particleMesh.overwriteBounds = true;
+			_particleMesh.userMax.setTo(_bounds, _bounds, _bounds);
+			_particleMesh.userMin.setTo(-_bounds, -_bounds, -_bounds);
 			_particleMesh.bounds = new BoundingSphere();
-			_particleMesh.bounds.fromSphere(new Vector3D, _bounds);
 			if (_data.hasOwnProperty("shareAnimationGeometry"))
 			{
 				_particleMesh.shareAnimationGeometry = _data.shareAnimationGeometry;

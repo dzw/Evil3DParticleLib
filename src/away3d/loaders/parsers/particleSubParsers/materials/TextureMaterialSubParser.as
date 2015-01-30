@@ -43,7 +43,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 					if(Away3D.USE_ATF_FOR_TEXTURES)
 						path+=".atf";
 					var url:URLRequest = new URLRequest(path);
-					addDependency("default1", url);
+					addDependency("default1", url, false, null, true);
 				}
 				else
 				{

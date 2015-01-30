@@ -53,7 +53,7 @@ package away3d.loaders.parsers.particleSubParsers.geometries.shapes
 			{
 				if (_data.url)
 				{
-					addDependency("default", new URLRequest(_data.url));
+					addDependency("default", new URLRequest(_data.url), false, null, true);
 				}
 				else
 				{
