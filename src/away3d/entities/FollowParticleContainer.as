@@ -9,6 +9,7 @@ package away3d.entities
 	import away3d.animators.states.ParticleFollowState;
 	import away3d.bounds.BoundingSphere;
 	import away3d.containers.ObjectContainer3D;
+	import away3d.core.math.Matrix3DUtils;
 	
 	use namespace arcane;
 	
@@ -16,6 +17,7 @@ package away3d.entities
 	{
 		
 		private var _identityTransform:Matrix3D = new Matrix3D;
+		private var _rawData:Vector.<Number>;
 		private var _followTarget:TargetObject3D;
 		private var _updateBoundMeshes:Vector.<Mesh> = new Vector.<Mesh>;
 		private var _updatePositionMeshes:Vector.<Mesh> = new Vector.<Mesh>;
@@ -25,6 +27,7 @@ package away3d.entities
 		{
 			_followTarget = new TargetObject3D(this);
 			addChild(_followTarget);
+			_rawData = _identityTransform.rawData;
 		}
 		
 		
@@ -74,12 +77,11 @@ package away3d.entities
 		{
 			if (_sceneTransformDirty)
 			{
-				var comps:Vector.<Vector3D> = super.sceneTransform.decompose();
-				var rawData:Vector.<Number> = _identityTransform.rawData;
-				rawData[0] = comps[2].x;
-				rawData[5] = comps[2].y;
-				rawData[10] = comps[2].z;
-				_identityTransform.copyRawDataFrom(rawData);
+				var comps:Vector.<Vector3D> = Matrix3DUtils.decompose(super.sceneTransform);
+				_rawData[0] = comps[2].x;
+				_rawData[5] = comps[2].y;
+				_rawData[10] = comps[2].z;
+				_identityTransform.copyRawDataFrom(_rawData);
 			}
 			if (_followTarget.sceneTransformDirty)
 				updateBounds(_followTarget.position);
@@ -111,12 +113,12 @@ import flash.geom.Vector3D;
 
 import away3d.containers.ObjectContainer3D;
 import away3d.containers.SkeletonBone;
+import away3d.core.math.Matrix3DUtils;
 import away3d.entities.FollowParticleContainer;
 
 class TargetObject3D extends ObjectContainer3D
 {
 	private var _container:FollowParticleContainer;
-	private var _helpTransform:Matrix3D = new Matrix3D;
 	
 	public var specificPos:Vector3D = new Vector3D;
 	private var specificEulers:Vector3D = new Vector3D;
@@ -135,10 +137,8 @@ class TargetObject3D extends ObjectContainer3D
 	{
 		if (_sceneTransformDirty)
 		{
-			
-			_helpTransform.copyFrom(_container.originalSceneTransform);
-			var comps:Vector.<Vector3D> = _helpTransform.decompose();
-			this.specificPos = comps[0];
+			var comps:Vector.<Vector3D> = Matrix3DUtils.decompose(_container.originalSceneTransform);
+			specificPos.copyFrom(comps[0]);
 			specificPos.x /= comps[2].x;
 			specificPos.y /= comps[2].y;
 			specificPos.z /= comps[2].z;

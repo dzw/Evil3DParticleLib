@@ -1,5 +1,7 @@
 package away3d.entities
 {
+	import flash.geom.Vector3D;
+	
 	import away3d.animators.ParticleAnimator;
 	import away3d.animators.ParticleGroupAnimator;
 	import away3d.animators.data.ParticleGroupEventProperty;
@@ -9,8 +11,7 @@ package away3d.entities
 	import away3d.bounds.BoundingSphere;
 	import away3d.containers.ObjectContainer3D;
 	import away3d.core.base.Object3D;
-	
-	import flash.geom.Vector3D;
+	import away3d.core.base.SubMesh;
 	
 	
 	public class ParticleGroup extends ObjectContainer3D
@@ -66,6 +67,18 @@ package away3d.entities
 				else
 				{
 					addChild(mesh);
+				}
+			}
+		}
+		
+		public function resetState():void
+		{
+			for each (var mesh:Mesh in _particleMeshes)
+			{
+				for each (var subMesh:SubMesh in mesh.subMeshes)
+				{
+					if(subMesh.animatorSubGeometry)
+						subMesh.animatorSubGeometry.previousTime = Number.NEGATIVE_INFINITY;
 				}
 			}
 		}
