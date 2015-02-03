@@ -8,6 +8,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 	import away3d.library.assets.IAsset;
 	import away3d.loaders.misc.ResourceDependency;
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
+	import away3d.loaders.parsers.particleSubParsers.values.color.ConstColorValueSubParser;
 	import away3d.materials.MaterialBase;
 	import away3d.materials.TextureMaterial;
 	import away3d.textures.Texture2DBase;
@@ -22,6 +23,8 @@ package away3d.loaders.parsers.particleSubParsers.materials
 		private var _smooth:Boolean;
 		private var _alphaBlending:Boolean;
 		private var _alphaThreshold:Number = 0;
+		private var _useColorTransform:Boolean;
+		private var _colorTransformValue:ConstColorValueSubParser;
 		
 		public function TextureMaterialSubParser()
 		{
@@ -37,6 +40,22 @@ package away3d.loaders.parsers.particleSubParsers.materials
 				_smooth = _data.smooth;
 				_alphaBlending = _data.alphaBlending;
 				_alphaThreshold = _data.alphaThreshold;
+				
+				if(_data.useColorTransform)
+				{
+					_useColorTransform = _data.useColorTransform;
+					
+					var object:Object;
+					var Id:Object;
+					var subData:Object;
+					
+					object = _data.colorTransform;
+					subData = object.data;
+					_colorTransformValue = new ConstColorValueSubParser(null);
+					addSubParser(_colorTransformValue);
+					_colorTransformValue.parseAsync(subData);				
+				}
+				
 				if (_data.url)
 				{
 					var path:String = _data.url;
@@ -69,6 +88,8 @@ package away3d.loaders.parsers.particleSubParsers.materials
 					_texture.alphaBlending = _alphaBlending;
 					_texture.blendMode = _blendMode;
 					_texture.alphaThreshold = _alphaThreshold;
+					if(_useColorTransform)
+						_texture.colorTransform = _colorTransformValue.setter.generateOneValue(0,1);
 					finalizeAsset(_texture);
 					return;
 				}
