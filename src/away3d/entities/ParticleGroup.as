@@ -149,10 +149,10 @@ package away3d.entities
 			for (i = 0; i < len; i++)
 			{
 				newMeshes[i] = _particleMeshes[i].clone() as Mesh;
-				//TODO: the Away3D doesn't allow to disable the bounds' update, need to change it in next cycle
-				var bounds:BoundingSphere = _particleMeshes[i].bounds as BoundingSphere;
-				newMeshes[i].bounds = new BoundingSphere();
-				newMeshes[i].bounds.fromSphere(new Vector3D, bounds.radius);
+				//在mesh.clone里面已经实现了对bounds的clone
+				//var bounds:BoundingSphere = _particleMeshes[i].bounds as BoundingSphere;
+				//newMeshes[i].bounds = new BoundingSphere();
+				//newMeshes[i].bounds.fromSphere(new Vector3D, bounds.radius);
 			}
 			var clone:ParticleGroup = new ParticleGroup(newMeshes, _instanceProperties, customParamters, _eventList);
 			clone.pivotPoint = pivotPoint;
