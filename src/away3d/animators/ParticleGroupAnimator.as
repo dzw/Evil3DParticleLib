@@ -26,40 +26,35 @@ package away3d.animators
 				var mesh:Mesh = particleAnimationMeshes[index];
 				var animator:ParticleAnimator = mesh.animator as ParticleAnimator;
 				animators.push(animator);
-				animator.autoUpdate = false;
 				if (instanceProperties[index])
 					animatorTimeOffset[index] = instanceProperties[index].timeOffset * 1000;
 			}
 			
 			this.eventList = eventList;
 		}
-		
-		override public function start():void
+
+		override public function start(beginTime:Number = NaN):void
 		{
-			super.start();
-			_absoluteTime = 0;
+			super.start(beginTime);
 			for (var index:int; index < numAnimator; index++)
 			{
 				var animator:ParticleAnimator = animators[index];
-				//cause the animator.absoluteTime to be 0
-				animator.update( -animator.absoluteTime / animator.playbackSpeed + animator.time);
-				
-				animator.resetTime(_absoluteTime + animatorTimeOffset[index]);
+				animator.update(_time);	
+				animator.resetTime(animatorTimeOffset[index]);
 			}
 		}
-		
-		override protected function updateDeltaTime(dt:Number):void
+	
+		override protected function updateState(time:int):void
 		{
-			_absoluteTime += dt;
 			for each (var animator:ParticleAnimator in animators)
 			{
-				animator.time = _absoluteTime;
+				animator.time = time;
 			}
 			if (eventList)
 			{
 				for each (var eventProperty:ParticleGroupEventProperty in eventList)
 				{
-					if (dt != 0 && (eventProperty.occurTime * 1000 - _absoluteTime) * (eventProperty.occurTime * 1000 - (_absoluteTime - dt)) <= 0)
+					if ((eventProperty.occurTime * 1000 - _lastTime) * (eventProperty.occurTime * 1000 - _time) <= 0)
 					{
 						if (hasEventListener(ParticleGroupEvent.OCCUR))
 							dispatchEvent(new ParticleGroupEvent(ParticleGroupEvent.OCCUR, eventProperty));
