@@ -11,6 +11,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 	import away3d.loaders.parsers.particleSubParsers.values.color.ConstColorValueSubParser;
 	import away3d.materials.MaterialBase;
 	import away3d.materials.TextureMaterial;
+	import away3d.textures.BitmapAsyncTexture;
 	import away3d.textures.Texture2DBase;
 
 	use namespace arcane;
@@ -59,10 +60,27 @@ package away3d.loaders.parsers.particleSubParsers.materials
 				if (_data.url)
 				{
 					var path:String = _data.url;
-					if(Away3D.USE_ATF_FOR_TEXTURES)
-						path+=".atf";
 					var url:URLRequest = new URLRequest(path);
-					addDependency("default1", url, false, null, true);
+					if(Away3D.USE_ASYNC_TEXTURES)
+					{
+						var hasAlpha:Boolean = true;
+						if(path.toLocaleLowerCase().indexOf(".jpg")!=-1)
+							hasAlpha = false;
+						var texture:BitmapAsyncTexture = new BitmapAsyncTexture(hasAlpha);
+						dispatchAskForAsyncURL(url);
+						texture.load(url);
+						finalizeAsset(texture);
+						_texture = new TextureMaterial(texture, _smooth, _repeat);
+						_texture.bothSides = _bothSide;
+						_texture.alphaBlending = _alphaBlending;
+						_texture.blendMode = _data.blendMode ? _data.blendMode : _blendMode ;
+						_texture.alphaThreshold = _alphaThreshold;
+						if(_useColorTransform)
+							_texture.colorTransform = _colorTransformValue.setter.generateOneValue(0,1);
+						finalizeAsset(_texture);
+					}
+					else
+						addDependency("default1", url, false, null, true);
 				}
 				else
 				{
