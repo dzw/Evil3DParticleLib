@@ -11,6 +11,7 @@ package away3d.loaders.parsers.particleSubParsers.values.global
 	import away3d.loaders.parsers.particleSubParsers.AllIdentifiers;
 	import away3d.loaders.parsers.particleSubParsers.values.ValueSubParserBase;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.global.LuaGeneratorSetter;
+	import away3d.primitives.LineShape;
 	
 	use namespace arcane;
 	public class LuaGeneratorSubParser extends ValueSubParserBase
@@ -57,6 +58,11 @@ package away3d.loaders.parsers.particleSubParsers.values.global
 				{
 					LuaGeneratorSetter(_setter).addSubGeometry(Geometry(asset).subGeometries[0] as CompactSubGeometry, _data.geoms[int(resourceDependency.id)].name);
 					return;//only retrive the first one
+				}
+				if (asset.assetType == AssetType.LINESHAPE)
+				{
+					LuaGeneratorSetter(_setter).addLineShape(LineShape(asset).getLineByIndex(0), _data.geoms[int(resourceDependency.id)].name);//the first subline
+					return;
 				}
 			}
 		}
