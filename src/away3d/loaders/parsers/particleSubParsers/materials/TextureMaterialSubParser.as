@@ -12,6 +12,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 	import away3d.materials.MaterialBase;
 	import away3d.materials.TextureMaterial;
 	import away3d.textures.BitmapAsyncTexture;
+	import away3d.textures.EtfBitmapAsyncTexture;
 	import away3d.textures.Texture2DBase;
 
 	use namespace arcane;
@@ -66,7 +67,16 @@ package away3d.loaders.parsers.particleSubParsers.materials
 						var hasAlpha:Boolean = true;
 						if(path.toLocaleLowerCase().indexOf(".jpg")!=-1)
 							hasAlpha = false;
-						var texture:BitmapAsyncTexture = new BitmapAsyncTexture(hasAlpha);
+						var texture:BitmapAsyncTexture;
+						if(Away3D.USE_ASYNC_ETF && path.toLocaleLowerCase().indexOf(".png") != -1)
+						{
+							url.url += ".etf";
+							texture = new EtfBitmapAsyncTexture(hasAlpha);
+						}
+						else
+						{
+							texture = new BitmapAsyncTexture(hasAlpha);
+						}
 						dispatchAskForAsyncURL(url);
 						texture.load(url);
 						finalizeAsset(texture);
