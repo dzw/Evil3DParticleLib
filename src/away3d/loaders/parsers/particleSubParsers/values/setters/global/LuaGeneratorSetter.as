@@ -7,6 +7,7 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 	import away3d.core.base.CompactSubGeometry;
 	import away3d.core.math.Matrix3DUtils;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
+	import away3d.primitives.SubLineShape;
 	
 	public class LuaGeneratorSetter extends SetterBase
 	{
@@ -27,6 +28,11 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 			"end\n"+
 			"function getModelVertexPositionByIndex(name,index)\n" +
 			" local vec = flash.call(__instanceLuaGeneratorSetter, \"getModelVertexPositionByIndex\", name, index)\n" +
+			" local result = {x=flash.asnumber(flash.getprop(vec,\"x\"));y=flash.asnumber(flash.getprop(vec,\"y\"));z=flash.asnumber(flash.getprop(vec,\"z\"))}\n" +
+			" return result\n" +
+			"end\n"+
+			"function getModelPositionByNumber(name,number)\n" +
+			" local vec = flash.call(__instanceLuaGeneratorSetter, \"getModelPositionByNumber\", name, number)\n" +
 			" local result = {x=flash.asnumber(flash.getprop(vec,\"x\"));y=flash.asnumber(flash.getprop(vec,\"y\"));z=flash.asnumber(flash.getprop(vec,\"z\"))}\n" +
 			" return result\n" +
 			"end\n";
@@ -58,32 +64,73 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 			_subGeoms.push(data);
 		}
 		
+		public function addLineShape(subLineShape:SubLineShape, name:String):void
+		{
+			if(!_subGeoms)
+			{
+				_subGeoms = new Vector.<GeometryData>;
+				_code += geomCode;
+			}
+			var data:GeometryData = new GeometryData;
+			data.subLineShape = subLineShape;
+			data.name = name;
+			_subGeoms.push(data);
+		}
 		
 		//lua function
 		public function getModelVertexNum(name:String):Number
 		{
 			var geomData:GeometryData = findGeometryDataByName(name);
 			if(geomData)
-				return geomData.subGeom.numVertices;
-			else
-				return 0;
-		}
+			{
+				if(geomData.subGeom)
+					return geomData.subGeom.numVertices;
+				else if(geomData.subLineShape)
+					return geomData.subLineShape.numVertices;
+			}
+			return 0;
+		}		
+				
 		//lua function
 		public function getModelVertexPositionByIndex(name:String, index:int):Vector3D
 		{
 			var geomData:GeometryData = findGeometryDataByName(name);
 			var result:Vector3D = Matrix3DUtils.CALCULATION_VECTOR3D;
 			result.x = result.y = result.z = 0;
-			if(geomData) {
-				var subGeom:CompactSubGeometry = geomData.subGeom;
-				if(index<0)
-					index = 0;
-				else if(index > subGeom.numVertices-1)
-					index = subGeom.numVertices - 1;
-				var pos:int = index*subGeom.vertexStride + subGeom.vertexOffset;
-				result.x = subGeom.vertexData[pos];
-				result.y = subGeom.vertexData[pos+1];
-				result.z = subGeom.vertexData[pos+2];
+			if(geomData) 
+			{
+				if(geomData.subGeom)
+				{
+					var subGeom:CompactSubGeometry = geomData.subGeom;
+					if(index<0)
+						index = 0;
+					else if(index > subGeom.numVertices-1)
+						index = subGeom.numVertices - 1;
+					var pos:int = index*subGeom.vertexStride + subGeom.vertexOffset;
+					result.x = subGeom.vertexData[pos];
+					result.y = subGeom.vertexData[pos+1];
+					result.z = subGeom.vertexData[pos+2];
+				}
+				else if(geomData.subLineShape)
+				{
+					if(index < 0)
+						index = 0;
+					else if(index >= geomData.subLineShape.numVertices)
+						index = geomData.subLineShape.numVertices - 1;
+					result = geomData.subLineShape.getVertexByIndex(index);
+				}
+			}
+			return result;
+		}
+		
+		public function getModelPositionByNumber(name:String, number:Number):Vector3D
+		{
+			var geomData:GeometryData = findGeometryDataByName(name);
+			var result:Vector3D = Matrix3DUtils.CALCULATION_VECTOR3D;
+			result.x = result.y = result.z = 0;
+			if(geomData && geomData.subLineShape) 
+			{
+				result = geomData.subLineShape.interpolateLine(number);
 			}
 			return result;
 		}
@@ -99,7 +146,7 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 			}
 			return null;
 		}
-		
+				
 		override public function startPropsGenerating(prop:ParticleProperties):void
 		{
 			_luaState = Lua.luaL_newstate();
@@ -156,9 +203,11 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 }
 
 import away3d.core.base.CompactSubGeometry;
+import away3d.primitives.SubLineShape;
 
 class GeometryData
 {
 	public var subGeom:CompactSubGeometry;
+	public var subLineShape:SubLineShape;
 	public var name:String;
 }
