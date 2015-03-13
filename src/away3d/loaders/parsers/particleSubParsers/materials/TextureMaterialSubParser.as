@@ -68,10 +68,10 @@ package away3d.loaders.parsers.particleSubParsers.materials
 						if(path.toLocaleLowerCase().indexOf(".jpg")!=-1)
 							hasAlpha = false;
 						var texture:BitmapAsyncTexture;
-						if(Away3D.USE_TEXTURES_ETF_FORMAT	&& path.toLocaleLowerCase().indexOf(".png") != -1)
+						if(Away3D.USE_TEXTURES_ETF_FORMAT && hasAlpha)
 						{
 							req.url += ".etf";
-							texture = new EtfBitmapAsyncTexture(hasAlpha);
+							texture = new EtfBitmapAsyncTexture();
 						}
 						else
 						{
