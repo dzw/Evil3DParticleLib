@@ -61,24 +61,24 @@ package away3d.loaders.parsers.particleSubParsers.materials
 				if (_data.url)
 				{
 					var path:String = _data.url;
-					var url:URLRequest = new URLRequest(path);
+					var req:URLRequest = new URLRequest(path);
 					if(Away3D.USE_ASYNC_TEXTURES)
 					{
 						var hasAlpha:Boolean = true;
 						if(path.toLocaleLowerCase().indexOf(".jpg")!=-1)
 							hasAlpha = false;
 						var texture:BitmapAsyncTexture;
-						if(Away3D.USE_ASYNC_ETF && path.toLocaleLowerCase().indexOf(".png") != -1)
+						if(Away3D.USE_TEXTURES_ETF_FORMAT	&& path.toLocaleLowerCase().indexOf(".png") != -1)
 						{
-							url.url += ".etf";
+							req.url += ".etf";
 							texture = new EtfBitmapAsyncTexture(hasAlpha);
 						}
 						else
 						{
 							texture = new BitmapAsyncTexture(hasAlpha);
 						}
-						dispatchAskForAsyncURL(url);
-						texture.load(url);
+						dispatchAskForAsyncURL(req);
+						texture.load(req);
 						finalizeAsset(texture);
 						_texture = new TextureMaterial(texture, _smooth, _repeat);
 						_texture.bothSides = _bothSide;
@@ -90,7 +90,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 						finalizeAsset(_texture);
 					}
 					else
-						addDependency("default1", url, false, null, true);
+						addDependency("default1", req, false, null, true);
 				}
 				else
 				{
