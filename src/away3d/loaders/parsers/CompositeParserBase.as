@@ -165,6 +165,11 @@ package away3d.loaders.parsers
 					child.root = value;
 		}
 		
+		override protected function dispatchAskForAsyncURL(req:URLRequest):void
+		{
+			_root == this ? super.dispatchAskForAsyncURL(req) : _root.dispatchAskForAsyncURL(req);
+		}
+		
 		arcane function addAssets(url:String, assets:Vector.<IAsset>):void
 		{
 			_loadedAssetCache[url] = assets;
