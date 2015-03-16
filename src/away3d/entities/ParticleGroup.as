@@ -2,6 +2,8 @@ package away3d.entities
 {
 	import flash.geom.Vector3D;
 	
+	import away3d.animators.IAnimator;
+	import away3d.animators.IAnimatorOwner;
 	import away3d.animators.ParticleAnimator;
 	import away3d.animators.ParticleGroupAnimator;
 	import away3d.animators.data.ParticleGroupEventProperty;
@@ -14,7 +16,7 @@ package away3d.entities
 	import away3d.core.base.SubMesh;
 	
 	
-	public class ParticleGroup extends ObjectContainer3D
+	public class ParticleGroup extends ObjectContainer3D implements IAnimatorOwner
 	{
 		protected var _animator:ParticleGroupAnimator;
 		protected var _particleMeshes:Vector.<Mesh>;
@@ -123,6 +125,11 @@ package away3d.entities
 		}
 		
 		public function get animator():ParticleGroupAnimator
+		{
+			return _animator;
+		}
+		
+		public function getAnimator():IAnimator
 		{
 			return _animator;
 		}
