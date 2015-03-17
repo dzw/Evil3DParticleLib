@@ -61,7 +61,7 @@ package away3d.loaders.parsers.particleSubParsers.values.global
 				}
 				if (asset.assetType == AssetType.LINESHAPE)
 				{
-					LuaGeneratorSetter(_setter).addLineShape(LineShape(asset).getLineByIndex(0), _data.geoms[int(resourceDependency.id)].name);//the first subline
+					LuaGeneratorSetter(_setter).addLineShape(LineShape(asset), _data.geoms[int(resourceDependency.id)].name);
 					return;
 				}
 			}
