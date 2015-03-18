@@ -1,15 +1,25 @@
 package away3d.animators
 {
+	import flash.display3D.Context3DProgramType;
+	
+	import away3d.animators.data.AnimationRegisterCache;
+	import away3d.animators.data.AnimationSubGeometry;
 	import away3d.animators.data.ParticleGroupEventProperty;
 	import away3d.animators.data.ParticleInstanceProperty;
+	import away3d.animators.states.ParticleStateBase;
+	import away3d.cameras.Camera3D;
+	import away3d.core.base.IRenderable;
+	import away3d.core.base.SubMesh;
+	import away3d.core.managers.Stage3DProxy;
 	import away3d.entities.Mesh;
 	import away3d.events.ParticleGroupEvent;
+	import away3d.materials.passes.MaterialPassBase;
 	
 	/**
 	 * ...
 	 * @author
 	 */
-	public class ParticleGroupAnimator extends AnimatorBase
+	public class ParticleGroupAnimator extends AnimatorBase implements IAnimator
 	{
 		private var animators:Vector.<ParticleAnimator> = new Vector.<ParticleAnimator>;
 		private var animatorTimeOffset:Vector.<int>;
@@ -31,6 +41,19 @@ package away3d.animators
 			}
 			
 			this.eventList = eventList;
+			for each( var event:ParticleGroupEventProperty in eventList)
+			{
+				if(event.customName == "end")
+				{
+					_duration = event.occurTime * 1000;
+					break;
+				}
+			}
+		}
+		
+		public function set looping(value:Boolean):void
+		{
+			_looping = value;
 		}
 
 		override public function start(beginTime:Number = NaN):void
@@ -72,6 +95,29 @@ package away3d.animators
 			}
 		}
 	
+		/**
+		 * @inheritDoc
+		 */
+		public function clone():IAnimator
+		{
+			return null;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function setRenderState(stage3DProxy:Stage3DProxy, renderable:IRenderable, vertexConstantOffset:int, vertexStreamOffset:int, camera:Camera3D):void
+		{
+
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function testGPUCompatibility(pass:MaterialPassBase):void
+		{
+			
+		}
 	}
 
 }
