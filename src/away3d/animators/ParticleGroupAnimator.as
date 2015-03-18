@@ -41,6 +41,19 @@ package away3d.animators
 			}
 			
 			this.eventList = eventList;
+			for each( var event:ParticleGroupEventProperty in eventList)
+			{
+				if(event.customName == "end")
+				{
+					_duration = event.occurTime * 1000;
+					break;
+				}
+			}
+		}
+		
+		public function set looping(value:Boolean):void
+		{
+			_looping = value;
 		}
 
 		override public function start(beginTime:Number = NaN):void
