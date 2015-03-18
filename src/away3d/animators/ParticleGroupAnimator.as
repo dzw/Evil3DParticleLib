@@ -50,15 +50,15 @@ package away3d.animators
 			{
 				var animator:ParticleAnimator = animators[index];
 				animator.update(_time);	
-				animator.resetTime(animatorTimeOffset[index]);
 			}
 		}
 	
 		override protected function updateState(time:int):void
 		{
-			for each (var animator:ParticleAnimator in animators)
+			for (var index:int; index < numAnimator; index++)
 			{
-				animator.time = time;
+				var animator:ParticleAnimator = animators[index];
+				animator.time =  -animatorTimeOffset[index] + time * animator.playbackSpeed;
 			}
 			if (eventList)
 			{
