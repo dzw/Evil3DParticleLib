@@ -61,6 +61,8 @@ package away3d.loaders.parsers.particleSubParsers.materials
 				if (_data.url)
 				{
 					var path:String = _data.url;
+					if(Away3D.USE_ATF_FOR_TEXTURES)
+						path+=".atf";
 					var req:URLRequest = new URLRequest(path);
 					if(Away3D.USE_ASYNC_TEXTURES)
 					{
