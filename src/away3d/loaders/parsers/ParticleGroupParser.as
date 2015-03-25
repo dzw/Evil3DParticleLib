@@ -72,6 +72,10 @@ package away3d.loaders.parsers
 				{
 					var animationData:Object = animationDatas[index];
 					var propertyData:Object = animationData.property;
+					if(animationData.data)
+					{
+						animationData.data.animatorLayer = -index;//entity zoffset
+					}
 					if (propertyData)
 					{
 						var instancePropertyParser:InstancePropertySubParser = new InstancePropertySubParser(null);
