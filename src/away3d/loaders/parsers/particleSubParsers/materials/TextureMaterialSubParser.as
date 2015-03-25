@@ -11,6 +11,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 	import away3d.loaders.parsers.particleSubParsers.values.color.ConstColorValueSubParser;
 	import away3d.materials.MaterialBase;
 	import away3d.materials.TextureMaterial;
+	import away3d.materials.utils.DefaultMaterialManager;
 	import away3d.textures.BitmapAsyncTexture;
 	import away3d.textures.EtfBitmapAsyncTexture;
 	import away3d.textures.Texture2DBase;
@@ -83,7 +84,7 @@ package away3d.loaders.parsers.particleSubParsers.materials
 						texture.load(req);
 						finalizeAsset(texture);
 						_texture = new TextureMaterial(texture, _smooth, _repeat);
-						_texture.bothSides = _bothSide;
+						_texture.bothSides = _data.bothSide;
 						_texture.alphaBlending = _alphaBlending;
 						_texture.blendMode = _data.blendMode ? _data.blendMode : _blendMode ;
 						_texture.alphaThreshold = _alphaThreshold;
@@ -129,7 +130,17 @@ package away3d.loaders.parsers.particleSubParsers.materials
 		
 		override arcane function resolveDependencyFailure(resourceDependency:ResourceDependency):void
 		{
-			dieWithError("resolveDependencyFailure");
+			//create a material with default texture2dbase
+			_texture = new TextureMaterial(DefaultMaterialManager.getDefaultCompressedTexture(0), _smooth, _repeat);
+			_texture.bothSides = _bothSide;
+			_texture.alphaBlending = _alphaBlending;
+			_texture.blendMode = _blendMode;
+			_texture.alphaThreshold = _alphaThreshold;
+			if(_useColorTransform)
+				_texture.colorTransform = _colorTransformValue.setter.generateOneValue(0,1);
+			finalizeAsset(_texture);
+			
+//			dieWithError("resolveDependencyFailure");
 		}
 		
 		override public function get material():MaterialBase

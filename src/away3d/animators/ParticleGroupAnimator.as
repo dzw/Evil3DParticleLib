@@ -85,15 +85,6 @@ package away3d.animators
 				}
 			}
 		}
-		
-		public function resetTime(offset:int = 0):void
-		{
-			for (var index:int; index < numAnimator; index++)
-			{
-				var animator:ParticleAnimator = animators[index];
-				animator.resetTime(offset + animatorTimeOffset[index]);
-			}
-		}
 	
 		/**
 		 * @inheritDoc
