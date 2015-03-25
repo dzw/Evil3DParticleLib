@@ -30,6 +30,7 @@ package away3d.loaders.parsers
 		private var _particleGeometry:ParticleGeometry;
 		private var _bounds:Number;
 		private var _displayLevel:int;
+		private var _animatorLayer:int;
 		
 		private var _nodeParsers:Vector.<ParticleNodeSubParserBase>;
 		private var _particleMaterialParser:MaterialSubParserBase;
@@ -62,6 +63,7 @@ package away3d.loaders.parsers
 				//display level
 				_displayLevel = _data.displayLevel;
 				
+				_animatorLayer = _data.animatorLayer;
 				//material
 				var object:Object = _data.material;
 				var id:Object = object.id;
@@ -197,6 +199,8 @@ package away3d.loaders.parsers
 			_particleMesh.userMin.setTo(-_bounds, -_bounds, -_bounds);
 			_particleMesh.bounds = new BoundingSphere();
 			_particleMesh.displayLevel = _displayLevel;
+			_particleMesh.zOffset = _animatorLayer;
+			
 			if (_data.hasOwnProperty("shareAnimationGeometry"))
 			{
 				_particleMesh.shareAnimationGeometry = _data.shareAnimationGeometry;
