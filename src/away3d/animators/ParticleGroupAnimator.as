@@ -59,11 +59,7 @@ package away3d.animators
 		override public function start(beginTime:Number = NaN):void
 		{
 			super.start(beginTime);
-			for (var index:int; index < numAnimator; index++)
-			{
-				var animator:ParticleAnimator = animators[index];
-				animator.update(_time);	
-			}
+			updateState(_time);
 		}
 	
 		override protected function updateState(time:int):void
