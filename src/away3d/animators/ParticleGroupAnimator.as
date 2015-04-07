@@ -1,19 +1,9 @@
 package away3d.animators
 {
-	import flash.display3D.Context3DProgramType;
-	
-	import away3d.animators.data.AnimationRegisterCache;
-	import away3d.animators.data.AnimationSubGeometry;
 	import away3d.animators.data.ParticleGroupEventProperty;
 	import away3d.animators.data.ParticleInstanceProperty;
-	import away3d.animators.states.ParticleStateBase;
-	import away3d.cameras.Camera3D;
-	import away3d.core.base.IRenderable;
-	import away3d.core.base.SubMesh;
-	import away3d.core.managers.Stage3DProxy;
 	import away3d.entities.Mesh;
 	import away3d.events.ParticleGroupEvent;
-	import away3d.materials.passes.MaterialPassBase;
 	
 	/**
 	 * ...
@@ -90,20 +80,14 @@ package away3d.animators
 			return null;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
-		public function setRenderState(stage3DProxy:Stage3DProxy, renderable:IRenderable, vertexConstantOffset:int, vertexStreamOffset:int, camera:Camera3D):void
+		override public function hasAnimationSet():Boolean
 		{
-
+			return false;
 		}
 		
-		/**
-		 * @inheritDoc
-		 */
-		public function testGPUCompatibility(pass:MaterialPassBase):void
+		override public function hasAnimationNode():Boolean
 		{
-			
+			return false;
 		}
 	}
 

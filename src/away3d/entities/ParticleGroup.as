@@ -1,7 +1,5 @@
 package away3d.entities
 {
-	import flash.geom.Vector3D;
-	
 	import away3d.animators.IAnimator;
 	import away3d.animators.IAnimatorOwner;
 	import away3d.animators.ParticleAnimator;
@@ -9,8 +7,6 @@ package away3d.entities
 	import away3d.animators.data.ParticleGroupEventProperty;
 	import away3d.animators.data.ParticleInstanceProperty;
 	import away3d.animators.nodes.ParticleFollowNode;
-	import away3d.animators.states.ParticleFollowState;
-	import away3d.bounds.BoundingSphere;
 	import away3d.containers.ObjectContainer3D;
 	import away3d.core.base.Object3D;
 	import away3d.core.base.SubMesh;
@@ -128,12 +124,7 @@ package away3d.entities
 			}
 		}
 		
-		public function get animator():ParticleGroupAnimator
-		{
-			return _animator;
-		}
-		
-		public function getAnimator():IAnimator
+		public function get animator():IAnimator
 		{
 			return _animator;
 		}
