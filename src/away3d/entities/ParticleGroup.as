@@ -129,6 +129,11 @@ package away3d.entities
 			return _animator;
 		}
 		
+		public function set animator(value:IAnimator):void
+		{
+			throw new Error("ParticleGroup::set animator is not allowed!!!");
+		}
+		
 		private function isFollowParticle(mesh:Mesh):Boolean
 		{
 			var animator:ParticleAnimator = mesh.animator as ParticleAnimator;
