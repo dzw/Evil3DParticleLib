@@ -1,11 +1,14 @@
 package away3d.loaders.parsers.particleSubParsers.values.setters.global
 {
+	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	import flash.utils.Dictionary;
 	
 	import away3d.animators.data.ParticleProperties;
 	import away3d.core.base.CompactSubGeometry;
+	import away3d.core.math.MathConsts;
 	import away3d.core.math.Matrix3DUtils;
+	import away3d.entities.Mesh;
 	import away3d.loaders.parsers.particleSubParsers.values.setters.SetterBase;
 	import away3d.primitives.LineShape;
 	import away3d.primitives.SubLineShape;
@@ -30,6 +33,11 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 			"end\n"+
 			"function getModelVertexPositionByIndex(name,index)\n" +
 			" local vec = flash.call(__instanceLuaGeneratorSetter, \"getModelVertexPositionByIndex\", name, index)\n" +
+			" local result = {x=flash.asnumber(flash.getprop(vec,\"x\"));y=flash.asnumber(flash.getprop(vec,\"y\"));z=flash.asnumber(flash.getprop(vec,\"z\"))}\n" +
+			" return result\n" +
+			"end\n" +
+			"function getModelVertexPositionWithTransByIndex(name,index)\n" +
+			" local vec = flash.call(__instanceLuaGeneratorSetter, \"getModelVertexPositionWithTransByIndex\", name, index)\n" +
 			" local result = {x=flash.asnumber(flash.getprop(vec,\"x\"));y=flash.asnumber(flash.getprop(vec,\"y\"));z=flash.asnumber(flash.getprop(vec,\"z\"))}\n" +
 			" return result\n" +
 			"end\n";
@@ -67,7 +75,7 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 			refs[_id] = this;
 		}
 		
-		public function addSubGeometry(subGeom:CompactSubGeometry, name:String):void
+		public function addSubGeometry(mesh:Mesh, name:String):void
 		{
 			if(!_subGeoms)
 			{
@@ -75,8 +83,25 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 				_code += geomCode;
 			}
 			var data:GeometryData = new GeometryData;
-			data.subGeom = subGeom;
+			var com:Vector.<Vector3D> = new Vector.<Vector3D>(3);
+			data.subGeom = mesh.geometry.subGeometries[1] as CompactSubGeometry;
 			data.name = name;
+			data.transform = new Matrix3D;
+			com = data.transform.decompose();
+			com[0].x = mesh.x;
+			com[0].y = mesh.y;
+			com[0].z = mesh.z;
+			
+			com[1].x = mesh.rotationX * MathConsts.DEGREES_TO_RADIANS;
+			com[1].y = mesh.rotationY * MathConsts.DEGREES_TO_RADIANS;
+			com[1].z = mesh.rotationZ * MathConsts.DEGREES_TO_RADIANS;
+						
+			com[2].x = mesh.scaleX;
+			com[2].y = mesh.scaleY;
+			com[2].z = mesh.scaleZ;
+			
+			data.transform.recompose(com);
+			
 			_subGeoms.push(data);
 		}
 		
@@ -126,6 +151,20 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 		public function getModelVertexPositionByIndex(name:String, index:int):Vector3D
 		{
 			var geomData:GeometryData = findGeometryDataByName(name);
+			var result:Vector3D = getVertexPositionByIndex(geomData, index);
+			return result;
+		}
+		
+		public function getModelVertexPositionWithTransByIndex(name:String, index:int):Vector3D
+		{
+			var geomData:GeometryData = findGeometryDataByName(name);
+			var result:Vector3D = getVertexPositionByIndex(geomData, index);				
+			result = geomData.transform.transformVector(result);
+			return result;
+		}
+		
+		private function getVertexPositionByIndex(geomData:GeometryData, index:int):Vector3D
+		{
 			var result:Vector3D = Matrix3DUtils.CALCULATION_VECTOR3D;
 			result.x = result.y = result.z = 0;
 			if(geomData) 
@@ -136,14 +175,14 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 				else if(index > subGeom.numVertices-1)
 					index = subGeom.numVertices - 1;
 				var pos:int = index*subGeom.vertexStride + subGeom.vertexOffset;
+				
 				result.x = subGeom.vertexData[pos];
 				result.y = subGeom.vertexData[pos+1];
-				result.z = subGeom.vertexData[pos+2];
-				
+				result.z = subGeom.vertexData[pos+2];		
 			}
 			return result;
 		}
-						
+						 
 		//lua function
 		/**
 		 * This method returns a vertex's position on the specified subLineShape.
@@ -315,6 +354,8 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 	}
 }
 
+import flash.geom.Matrix3D;
+
 import away3d.core.base.CompactSubGeometry;
 import away3d.primitives.LineShape;
 
@@ -322,6 +363,7 @@ class GeometryData
 {
 	public var subGeom:CompactSubGeometry;
 	public var name:String;
+	public var transform:Matrix3D;
 }
 
 class LineShapeData
