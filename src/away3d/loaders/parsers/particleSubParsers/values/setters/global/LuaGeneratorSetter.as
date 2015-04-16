@@ -83,24 +83,9 @@ package away3d.loaders.parsers.particleSubParsers.values.setters.global
 				_code += geomCode;
 			}
 			var data:GeometryData = new GeometryData;
-			var com:Vector.<Vector3D> = new Vector.<Vector3D>(3);
-			data.subGeom = mesh.geometry.subGeometries[1] as CompactSubGeometry;
+			data.subGeom = mesh.geometry.subGeometries[0] as CompactSubGeometry;
 			data.name = name;
-			data.transform = new Matrix3D;
-			com = data.transform.decompose();
-			com[0].x = mesh.x;
-			com[0].y = mesh.y;
-			com[0].z = mesh.z;
-			
-			com[1].x = mesh.rotationX * MathConsts.DEGREES_TO_RADIANS;
-			com[1].y = mesh.rotationY * MathConsts.DEGREES_TO_RADIANS;
-			com[1].z = mesh.rotationZ * MathConsts.DEGREES_TO_RADIANS;
-						
-			com[2].x = mesh.scaleX;
-			com[2].y = mesh.scaleY;
-			com[2].z = mesh.scaleZ;
-			
-			data.transform.recompose(com);
+			data.transform = mesh.transform.clone();
 			
 			_subGeoms.push(data);
 		}
