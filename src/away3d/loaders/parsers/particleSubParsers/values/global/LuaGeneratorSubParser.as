@@ -5,6 +5,7 @@ package away3d.loaders.parsers.particleSubParsers.values.global
 	import away3d.arcane;
 	import away3d.core.base.CompactSubGeometry;
 	import away3d.core.base.Geometry;
+	import away3d.entities.Mesh;
 	import away3d.library.assets.AssetType;
 	import away3d.library.assets.IAsset;
 	import away3d.loaders.misc.ResourceDependency;
@@ -54,11 +55,16 @@ package away3d.loaders.parsers.particleSubParsers.values.global
 			for (var i:int; i < len; i++)
 			{
 				var asset:IAsset = assets[i];
-				if (asset.assetType == AssetType.GEOMETRY)
+				if (asset.assetType == AssetType.MESH)
+				{
+					LuaGeneratorSetter(_setter).addSubGeometry(Mesh(asset), _data.geoms[int(resourceDependency.id)].name);
+					return;
+				}
+				/*if (asset.assetType == AssetType.GEOMETRY)
 				{
 					LuaGeneratorSetter(_setter).addSubGeometry(Geometry(asset).subGeometries[0] as CompactSubGeometry, _data.geoms[int(resourceDependency.id)].name);
 					return;//only retrive the first one
-				}
+				}*/
 				if (asset.assetType == AssetType.LINESHAPE)
 				{
 					LuaGeneratorSetter(_setter).addLineShape(LineShape(asset), _data.geoms[int(resourceDependency.id)].name);
