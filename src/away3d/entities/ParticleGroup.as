@@ -51,6 +51,8 @@ package away3d.entities
 			_eventList = eventList;
 			
 			_animator = new ParticleGroupAnimator(particleMeshes, instanceProperties, _eventList);
+			_animator.owner = this;
+			
 			if(_customParamters.loop)
 				_animator.looping = true;
 			else
