@@ -46,12 +46,6 @@ package away3d.animators
 			_looping = value;
 		}
 
-		override public function start(beginTime:Number = NaN):void
-		{
-			super.start(beginTime);
-			updateState(_time);
-		}
-	
 		override protected function updateState(time:int):void
 		{
 			for (var index:int; index < numAnimator; index++)
